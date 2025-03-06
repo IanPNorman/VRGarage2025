@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BasicInitialMoveState : BasicState
 {
     public bool atDoor;
+
     public BasicState BasicBreakDoorState;
 
+    public NavMeshAgent agent;  
+
+    public GameObject[] allDoors;
+
+    public float distanceTo;
+
+    public float lowestDistance;
+
+    public int arrNum;
 
     public override BasicState RunCurrentState()
     {
@@ -17,15 +28,30 @@ public class BasicInitialMoveState : BasicState
         }
         else
         {
+            agent.SetDestination(nearestDoor());
             return this;
         }
     }
 
-    private void OnTriggerEnter(Collider collision)
+    void Start()
     {
-        if (collision.gameObject.tag == "Player")
+        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands this might have to happen in update not game start 
+        agent = GetComponentInParent<NavMeshAgent>();
+    }
+    
+    private Vector3 nearestDoor()
+    {
+        
+        lowestDistance = Vector3.Distance(this.transform.parent.position, allDoors[0].transform.position);
+        for (int i = 0; i < allDoors.Length; i++)
         {
-            atDoor = true;
+            distanceTo = Vector3.Distance(this.transform.parent.position, allDoors[i].transform.position);
+            if (distanceTo <= lowestDistance)
+            {
+                lowestDistance = distanceTo;
+                arrNum = i;
+            }
         }
+        return allDoors[arrNum].transform.position;
     }
 }
