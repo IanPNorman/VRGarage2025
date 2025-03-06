@@ -38,13 +38,7 @@ public class BasicInitialMoveState : BasicState
         allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands this might have to happen in update not game start 
         agent = GetComponentInParent<NavMeshAgent>();
     }
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.tag == "Door")
-        {
-            atDoor = true;
-        }
-    }
+    
     private Vector3 nearestDoor()
     {
         
