@@ -35,8 +35,7 @@ public class BasicInitialMoveState : BasicState
 
     void Start()
     {
-        // Not Currently initializing entire array and causes error because of it
-        GameObject.FindGameObjectsWithTag("Door"); // If map ever expands this might have to happen in update not game start 
+        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands this might have to happen in update not game start 
         agent = GetComponentInParent<NavMeshAgent>();
     }
     private void OnTriggerEnter(Collider collision)
