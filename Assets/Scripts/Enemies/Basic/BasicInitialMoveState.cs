@@ -35,7 +35,7 @@ public class BasicInitialMoveState : BasicState
 
     void Start()
     {
-        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands this might have to happen in update not game start 
+        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands and more doors are added while the game is going this wont work 
         agent = GetComponentInParent<NavMeshAgent>();
     }
     

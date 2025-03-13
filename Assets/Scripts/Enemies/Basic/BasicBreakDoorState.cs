@@ -17,6 +17,8 @@ public class BasicBreakDoorState : BasicState
         }
         else
         {
+            // Continue to break door until its health is 0, then break the door and have enemy enter through the door.
+            // Probably play animations on repeat every x seconds, then do 1 damage. 
             return this;
         }
     }
