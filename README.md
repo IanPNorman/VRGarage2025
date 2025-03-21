@@ -6,7 +6,7 @@
 * Dungeon Master (DM): The fifth player controls enemy spawns, environmental hazards, and game events.
 * Progressive Difficulty: As rounds advance, AI enemies become stronger, new enemies and environment changes appear, and survivors must adapt to the environment.
 ## Game Components:
-# Objects:
+### Objects:
 * Playable Characters: Four PC’s will be allowed to choose from set weapons.
 * Enemies: Various AI-controlled minions, ranging from basic hordes to an elite boss enemy.
 * DM Tools: Spawn enemies, buff enemies, and use map-altering abilities to influence gameplay.
