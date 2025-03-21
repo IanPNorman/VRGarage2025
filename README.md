@@ -43,6 +43,6 @@ Equipment and Software Requirements:
 ## Software and Tools:
 * Game Engine: Unity game engine for built in VR support
 * 3D Modeling & Animation: Blender
-* Audio Design: FMOD or Wwise.
+* Audio Design: FMOD or Wwise.\
 This VR game will offer a unique take on existing game ideas and will provide a unique gameplay loop that is fun.
 
