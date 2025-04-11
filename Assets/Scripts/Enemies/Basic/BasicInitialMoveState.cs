@@ -19,6 +19,8 @@ public class BasicInitialMoveState : BasicState
 
     public int arrNum;
 
+
+
     public override BasicState RunCurrentState()
     {
         if (atDoor)
@@ -29,16 +31,26 @@ public class BasicInitialMoveState : BasicState
         else
         {
             agent.SetDestination(nearestDoor());
+            CheckDistance();
             return this;
         }
     }
 
     void Start()
     {
-        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands this might have to happen in update not game start 
+        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands and more doors are added while the game is going this wont work 
         agent = GetComponentInParent<NavMeshAgent>();
     }
-    
+
+    private void CheckDistance()
+    {
+        if (distanceTo < 2) {
+
+             Debug.Log("Enter Damage Door State");
+             atDoor = true;
+        }
+    }
+
     private Vector3 nearestDoor()
     {
         
@@ -52,6 +64,9 @@ public class BasicInitialMoveState : BasicState
                 arrNum = i;
             }
         }
+        
         return allDoors[arrNum].transform.position;
     }
+
+    
 }
