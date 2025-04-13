@@ -44,9 +44,7 @@ public class BasicInitialMoveState : BasicState
 
     private void CheckDistance()
     {
-        if (distanceTo < 2) {
-
-             Debug.Log("Enter Damage Door State");
+        if (lowestDistance < 2) {
              atDoor = true;
         }
     }
