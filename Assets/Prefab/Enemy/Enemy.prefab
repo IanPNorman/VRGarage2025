@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atDoor: 0
-  BasicBreakDoorState: {fileID: 0}
+  BasicBreakDoorState: {fileID: 8934420016667310739}
   agent: {fileID: 0}
   allDoors: []
   distanceTo: 0
