@@ -11,6 +11,7 @@ public class BasicInitialMoveState : BasicState
     private Finder finder;
     private GameObject nearestDoor;
 
+    public float stopBeforeReach;
     public override BasicState RunCurrentState()
     {
         if (atDoor)
@@ -39,8 +40,9 @@ public class BasicInitialMoveState : BasicState
     private void CheckDistance(GameObject target)
     {
         float distance = Vector3.Distance(transform.parent.position, target.transform.position);
-        if (distance < 2)
+        if (distance < stopBeforeReach)
         {
+            Debug.Log("Stopped at distance: " + distance);
             atDoor = true;
         }
     }

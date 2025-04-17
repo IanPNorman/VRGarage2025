@@ -867,10 +867,15 @@ PrefabInstance:
       propertyPath: BasicHuntPlayer
       value: 
       objectReference: {fileID: 1277989156}
+    - target: {fileID: 2384711071874244047, guid: 4adaf70197c22fb4a8350f8c6770881d,
+        type: 3}
+      propertyPath: stopBeforeReach
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5684899064787037926, guid: 4adaf70197c22fb4a8350f8c6770881d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.97
+      value: 6.21
       objectReference: {fileID: 0}
     - target: {fileID: 5684899064787037926, guid: 4adaf70197c22fb4a8350f8c6770881d,
         type: 3}
@@ -880,7 +885,7 @@ PrefabInstance:
     - target: {fileID: 5684899064787037926, guid: 4adaf70197c22fb4a8350f8c6770881d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -48.61
+      value: -14.34
       objectReference: {fileID: 0}
     - target: {fileID: 5684899064787037926, guid: 4adaf70197c22fb4a8350f8c6770881d,
         type: 3}
