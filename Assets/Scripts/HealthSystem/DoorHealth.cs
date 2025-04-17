@@ -9,7 +9,6 @@ public class DoorHealth : MonoBehaviour
     {
         if (numBarricades == null || numBarricades.Length == 0)
         {
-            // Fill array with direct children
             int count = transform.childCount;
             numBarricades = new GameObject[count];
 
@@ -17,8 +16,6 @@ public class DoorHealth : MonoBehaviour
             {
                 numBarricades[i] = transform.GetChild(i).gameObject;
             }
-
-            Debug.Log(numBarricades[0]);
         }
     }
 
