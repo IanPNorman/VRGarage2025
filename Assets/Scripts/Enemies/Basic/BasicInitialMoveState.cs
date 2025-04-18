@@ -1,72 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
 
 public class BasicInitialMoveState : BasicState
 {
     public bool atDoor;
 
     public BasicState BasicBreakDoorState;
+    public NavMeshAgent agent;
 
-    public NavMeshAgent agent;  
+    private Finder finder;
+    private GameObject nearestDoor;
 
-    public GameObject[] allDoors;
-
-    public float distanceTo;
-
-    public float lowestDistance;
-
-    public int arrNum;
-
-
-
+    public float stopBeforeReach;
     public override BasicState RunCurrentState()
     {
         if (atDoor)
         {
-
             return BasicBreakDoorState;
         }
         else
         {
-            agent.SetDestination(nearestDoor());
-            CheckDistance();
+            nearestDoor = finder.FindNearestDoor(transform.parent.position);
+            if (nearestDoor != null)
+            {
+                agent.SetDestination(nearestDoor.transform.position);
+                CheckDistance(nearestDoor);
+            }
+
             return this;
         }
     }
 
     void Start()
     {
-        allDoors = GameObject.FindGameObjectsWithTag("Door"); // If map ever expands and more doors are added while the game is going this wont work 
         agent = GetComponentInParent<NavMeshAgent>();
+        finder = FindObjectOfType<Finder>(); 
     }
 
-    private void CheckDistance()
+    private void CheckDistance(GameObject target)
     {
-        if (distanceTo < 2) {
-
-             Debug.Log("Enter Damage Door State");
-             atDoor = true;
-        }
-    }
-
-    private Vector3 nearestDoor()
-    {
-        
-        lowestDistance = Vector3.Distance(this.transform.parent.position, allDoors[0].transform.position);
-        for (int i = 0; i < allDoors.Length; i++)
+        float distance = Vector3.Distance(transform.parent.position, target.transform.position);
+        if (distance < stopBeforeReach)
         {
-            distanceTo = Vector3.Distance(this.transform.parent.position, allDoors[i].transform.position);
-            if (distanceTo <= lowestDistance)
-            {
-                lowestDistance = distanceTo;
-                arrNum = i;
-            }
+            Debug.Log("Stopped at distance: " + distance);
+            atDoor = true;
         }
-        
-        return allDoors[arrNum].transform.position;
     }
-
-    
 }

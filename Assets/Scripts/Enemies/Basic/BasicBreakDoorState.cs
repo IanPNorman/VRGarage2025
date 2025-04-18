@@ -1,40 +1,32 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class BasicBreakDoorState : BasicState
 {
     public bool doorIsBroken;
-
     public bool startDamage;
 
-    public BasicState BasicInitialMoveState;
-
+    public BasicState BasicHuntPlayer;
     public NavMeshAgent agent;
-
-    public GameObject[] allDoors;
-
-    public float distanceTo;
-
-    public float lowestDistance;
-
-    public int arrNum;
 
     public GameObject targetDoor;
 
+    private Finder finder;
     public HealthHandler healthHandler;
+    private DoorHealth doorHealth;
 
     private Coroutine damageDoorCoroutine;
 
-
+    public int damageDone = 0;
 
     public override BasicState RunCurrentState()
     {
         if (doorIsBroken)
         {
-            Debug.Log("Done with breakDoor state");
-            return BasicInitialMoveState;
+            
+            return BasicHuntPlayer;
         }
         else
         {
@@ -42,58 +34,52 @@ public class BasicBreakDoorState : BasicState
             {
                 startDamage = true;
 
-                targetDoor = nearestDoor();
+                targetDoor = finder.FindNearestDoor(transform.parent.position);
 
-                damageDoorCoroutine = StartCoroutine(damageDoor());
+                if (targetDoor != null)
+                {
+                    
+                    damageDoorCoroutine = StartCoroutine(damageDoor());
+                }
             }
+
             return this;
         }
     }
 
-    void Start() // Simplify this and put into external class for easier access instead of each state having to call it.
+    void Start()
     {
-        allDoors = GameObject.FindGameObjectsWithTag("Door");
-    }
-
-    private GameObject nearestDoor()
-    {
-
-        lowestDistance = Vector3.Distance(this.transform.parent.position, allDoors[0].transform.position);
-        for (int i = 0; i < allDoors.Length; i++)
-        {
-            distanceTo = Vector3.Distance(this.transform.parent.position, allDoors[i].transform.position);
-            if (distanceTo <= lowestDistance)
-            {
-                lowestDistance = distanceTo;
-                arrNum = i;
-            }
-        }
-
-        return allDoors[arrNum];
+        finder = FindObjectOfType<Finder>();
     }
 
     IEnumerator damageDoor()
     {
-        healthHandler = targetDoor.GetComponent<HealthHandler>();
-        if (healthHandler.CurrentHealth > 0)
+        if (healthHandler == null)
+            healthHandler = targetDoor.GetComponent<HealthHandler>();
+
+        if (doorHealth == null)
+            doorHealth = targetDoor.GetComponent<DoorHealth>();
+
+        if (healthHandler == null || doorHealth == null)
         {
+            Debug.LogWarning("Missing HealthHandler or DoorHealth component!");
+            yield break;
+        }
+
+        while (healthHandler.CurrentHealth > 0)
+        {
+            GameObject barricade = doorHealth.getBarricade(damageDone);
+            if (barricade != null)
+                barricade.SetActive(false);
+
+            damageDone++;
             healthHandler.HealthChanged(-1);
-        }
 
-        else
-        {
             yield return new WaitForSeconds(2f);
-
-            doorIsBroken = true;
-
-            StopCoroutine(damageDoorCoroutine);
         }
+        doorIsBroken = true;
 
-        yield return new WaitForSeconds(2f);
-
-        StartCoroutine(damageDoor());
+        damageDoorCoroutine = null;
     }
-
-
 
 }
