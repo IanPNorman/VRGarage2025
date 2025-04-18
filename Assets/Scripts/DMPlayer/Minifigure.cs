@@ -5,6 +5,7 @@ public class Minifigure : MonoBehaviour
 {
     public static event System.Action<Minifigure> OnGrabbed;
     public static event System.Action<Minifigure> OnReleased;
+    public GameObject enemyPrefab;
 
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab;
     private BoardSlot currentNearbySlot = null;

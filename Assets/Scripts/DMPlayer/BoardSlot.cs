@@ -32,6 +32,7 @@ public class BoardSlot : MonoBehaviour
         if (!isFilled)
         {
             rend.material = on ? highlightMat : originalMat;
+             
         }
     }
 
