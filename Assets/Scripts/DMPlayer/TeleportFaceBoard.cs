@@ -11,17 +11,22 @@ public class TeleportFaceBoard : MonoBehaviour
     public Transform xrRigTransform;
 
     [Header("Teleportation Provider from Locomotion > Teleportation")]
-    public TeleportationProvider tpProvider;  // ✅ assign this manually in Inspector
+    public TeleportationProvider tpProvider;
+
+    [Header("Optional: Delay before turning")]
+    public float rotationDelay = 0f;
 
     private void OnEnable()
     {
         if (tpProvider != null)
         {
+            Debug.Log("[TeleportFaceBoard] Subscribed to teleport event.");
             tpProvider.endLocomotion += OnTeleportEnd;
+            
         }
         else
         {
-            Debug.LogWarning("TeleportFaceBoard: TeleportationProvider is not assigned.");
+            Debug.LogWarning("TeleportationProvider is not assigned.");
         }
     }
 
@@ -34,29 +39,38 @@ public class TeleportFaceBoard : MonoBehaviour
     }
 
     private void OnTeleportEnd(LocomotionSystem system)
-{
-    Debug.Log("Teleport complete: rotating toward board");
-
-    if (boardCenter == null || xrRigTransform == null)
     {
-        Debug.LogWarning("TeleportFaceBoard: Missing references.");
-        return;
+        Debug.Log("TeleportFaceBoard: Teleport completed.");
+
+        if (boardCenter == null || xrRigTransform == null)
+        {
+            Debug.LogWarning("TeleportFaceBoard: Missing boardCenter or xrRigTransform reference.");
+            return;
+        }
+
+        if (rotationDelay > 0f)
+        {
+            Invoke(nameof(RotateTowardBoard), rotationDelay);
+        }
+        else
+        {
+            RotateTowardBoard();
+        }
     }
 
-    Vector3 direction = boardCenter.position - xrRigTransform.position;
-    direction.y = 0f;
-
-    Debug.Log("Direction to board: " + direction);
-
-    if (direction.sqrMagnitude > 0.001f)
+    private void RotateTowardBoard()
     {
-        xrRigTransform.forward = direction.normalized;
-        Debug.Log("Player rotated to face the board.");
-    }
-    else
-    {
-        Debug.Log("Look direction was too small. No rotation applied.");
-    }
-}
+        Vector3 direction = boardCenter.position - xrRigTransform.position;
+        direction.y = 0;
 
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            xrRigTransform.forward = direction.normalized;
+            Debug.Log("TeleportFaceBoard: Player rotated to face the board.");
+        }
+        else
+        {
+            Debug.Log("TeleportFaceBoard: Direction was too small, skipping rotation.");
+        }
+    }
 }

@@ -16,7 +16,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("WaveSpawner: Start() called.");
+       // Debug.Log("WaveSpawner: Start() called.");
         StartCoroutine(WaveLoop());
     }
 
@@ -24,37 +24,47 @@ public class WaveSpawner : MonoBehaviour
     {
         while (true)
         {
+          //  Debug.Log("WaveSpawner: Waiting for next wave...");
             yield return new WaitForSeconds(waveInterval);
+         //   Debug.Log("WaveSpawner: Spawning wave now.");
             SpawnWave();
         }
     }
 
     private void SpawnWave()
     {
-        Debug.Log("WaveSpawner: Checking slots...");
+     //   Debug.Log("WaveSpawner: Checking slots...");
         foreach (var slot in slots)
         {
-            Debug.Log($"Checking slot: {slot.name} — Filled: {slot.isFilled}");
+           // Debug.Log($"Checking slot: {slot.name} — Filled: {slot.isFilled}");
             if (slot.isFilled && slot.assignedFigure != null)
             {
-                
-                Debug.Log($"Slot {slot.name} is filled. Assigned enemy prefab: {slot.assignedFigure.enemyPrefab}");
+               // Debug.Log($"Slot {slot.name} is filled. Assigned enemy prefab: {slot.assignedFigure.enemyPrefab}");
                 GameObject enemyPrefab = slot.assignedFigure.enemyPrefab;
                 if (enemyPrefab == null) continue;
 
                 Transform spawnZone = GetSpawnZone(slot.boardSide);
-                if (spawnZone == null) continue;
+                if (spawnZone == null || spawnZone.childCount == 0) continue;
 
-                for (int i = 0; i < enemiesPerMinifigure; i++)
-                {
-                    Vector3 offset = Random.insideUnitSphere * 2f;
-                    offset.y = 0;
-
-                    Vector3 spawnPos = spawnZone.position + offset;
-
-                    Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-                }
+                StartCoroutine(SpawnEnemiesWithDelay(enemyPrefab, spawnZone, enemiesPerMinifigure));
             }
+        }
+    }
+
+    private IEnumerator SpawnEnemiesWithDelay(GameObject enemyPrefab, Transform spawnZone, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            // Pick a random child spawn point
+            int index = Random.Range(0, spawnZone.childCount);
+            Transform spawnPoint = spawnZone.GetChild(index);
+
+            Vector3 spawnPos = spawnPoint.position;
+           // Debug.Log($"Spawning enemy at {spawnPos}");
+
+            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+
+            yield return new WaitForSeconds(1.5f); // delay between spawns
         }
     }
 
@@ -70,21 +80,20 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    #if UNITY_EDITOR
-private void OnDrawGizmos()
-{
-    Gizmos.color = Color.red;
-    if (northZone) Gizmos.DrawWireSphere(northZone.position, 2f);
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if (northZone) Gizmos.DrawWireSphere(northZone.position, 2f);
 
-    Gizmos.color = Color.blue;
-    if (southZone) Gizmos.DrawWireSphere(southZone.position, 2f);
+        Gizmos.color = Color.blue;
+        if (southZone) Gizmos.DrawWireSphere(southZone.position, 2f);
 
-    Gizmos.color = Color.green;
-    if (eastZone) Gizmos.DrawWireSphere(eastZone.position, 2f);
+        Gizmos.color = Color.green;
+        if (eastZone) Gizmos.DrawWireSphere(eastZone.position, 2f);
 
-    Gizmos.color = Color.yellow;
-    if (westZone) Gizmos.DrawWireSphere(westZone.position, 2f);
-}
+        Gizmos.color = Color.yellow;
+        if (westZone) Gizmos.DrawWireSphere(westZone.position, 2f);
+    }
 #endif
-
 }
