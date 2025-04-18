@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,17 +12,20 @@ public class BasicBreakDoorState : BasicState
     public NavMeshAgent agent;
 
     public GameObject targetDoor;
+
+    private Finder finder;
     public HealthHandler healthHandler;
+    private DoorHealth doorHealth;
 
     private Coroutine damageDoorCoroutine;
 
-    private Finder finder;
+    public int damageDone = 0;
 
     public override BasicState RunCurrentState()
     {
         if (doorIsBroken)
         {
-            Debug.Log("Done with breakDoor state");
+            
             return BasicHuntPlayer;
         }
         else
@@ -34,6 +38,7 @@ public class BasicBreakDoorState : BasicState
 
                 if (targetDoor != null)
                 {
+                    
                     damageDoorCoroutine = StartCoroutine(damageDoor());
                 }
             }
@@ -50,9 +55,13 @@ public class BasicBreakDoorState : BasicState
     IEnumerator damageDoor()
     {
         healthHandler = targetDoor.GetComponent<HealthHandler>();
+        doorHealth = targetDoor.GetComponent<DoorHealth>();
 
         if (healthHandler != null && healthHandler.CurrentHealth > 0)
         {
+            doorHealth.getBarricade(damageDone).SetActive(false);
+            damageDone++;
+
             healthHandler.HealthChanged(-1);
         }
         else
@@ -70,4 +79,5 @@ public class BasicBreakDoorState : BasicState
         yield return new WaitForSeconds(2f);
         damageDoorCoroutine = StartCoroutine(damageDoor());
     }
+
 }
