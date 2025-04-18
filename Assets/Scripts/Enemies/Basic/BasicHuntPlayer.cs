@@ -20,6 +20,7 @@ public class BasicHuntPlayer: BasicState
     {
         if (nearPlayer)
         {
+            nearPlayer = false;
             return AttackPlayerState;
         }
         else
