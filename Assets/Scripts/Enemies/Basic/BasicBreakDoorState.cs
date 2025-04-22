@@ -62,15 +62,17 @@ public class BasicBreakDoorState : BasicState
 
         if (healthHandler == null || doorHealth == null)
         {
-            Debug.LogWarning("Missing HealthHandler or DoorHealth component!");
             yield break;
         }
 
         while (healthHandler.CurrentHealth > 0)
         {
             GameObject barricade = doorHealth.getBarricade(damageDone);
+            GameObject repairdBaricade = doorHealth.getRepairable(damageDone); //This gets the repairable barricade 
             if (barricade != null)
                 barricade.SetActive(false);
+            if (repairdBaricade != null)
+                repairdBaricade.SetActive(true); // This sets the repairdable barriade as true
 
             damageDone++;
             healthHandler.HealthChanged(-1);
