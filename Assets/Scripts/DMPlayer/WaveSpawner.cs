@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -32,41 +34,83 @@ public class WaveSpawner : MonoBehaviour
     }
 
     private void SpawnWave()
+{
+    Dictionary<BoardSlot.Side, List<BoardSlot>> groupedSlots = new();
+
+    foreach (BoardSlot slot in slots)
     {
-     //   Debug.Log("WaveSpawner: Checking slots...");
-        foreach (var slot in slots)
-        {
-           // Debug.Log($"Checking slot: {slot.name} — Filled: {slot.isFilled}");
-            if (slot.isFilled && slot.assignedFigure != null)
-            {
-               // Debug.Log($"Slot {slot.name} is filled. Assigned enemy prefab: {slot.assignedFigure.enemyPrefab}");
-                GameObject enemyPrefab = slot.assignedFigure.enemyPrefab;
-                if (enemyPrefab == null) continue;
+        if (!groupedSlots.ContainsKey(slot.boardSide))
+            groupedSlots[slot.boardSide] = new List<BoardSlot>();
 
-                Transform spawnZone = GetSpawnZone(slot.boardSide);
-                if (spawnZone == null || spawnZone.childCount == 0) continue;
-
-                StartCoroutine(SpawnEnemiesWithDelay(enemyPrefab, spawnZone, enemiesPerMinifigure));
-            }
-        }
+        groupedSlots[slot.boardSide].Add(slot);
     }
 
-    private IEnumerator SpawnEnemiesWithDelay(GameObject enemyPrefab, Transform spawnZone, int count)
+    foreach (var kvp in groupedSlots)
     {
-        for (int i = 0; i < count; i++)
+        List<BoardSlot> sideSlots = kvp.Value;
+        Transform spawnZone = GetSpawnZone(kvp.Key);
+        if (spawnZone == null || spawnZone.childCount == 0) continue;
+
+        // Start coroutine for each side
+        StartCoroutine(SpawnFromSideSorted(sideSlots, spawnZone));
+    }
+}
+
+
+private IEnumerator SpawnFromSideSorted(List<BoardSlot> sideSlots, Transform spawnZone)
+{
+    // Filter and order slots by name or a slot ID
+    var orderedSlots = sideSlots
+        .Where(s => s.isFilled && s.assignedFigure != null)
+        .OrderBy(s => s.name) // or s.slotNumber if available
+        .ToList();
+
+    foreach (BoardSlot slot in orderedSlots)
+    {
+        Minifigure fig = slot.assignedFigure;
+
+        for (int i = 0; i < enemiesPerMinifigure; i++)
         {
-            // Pick a random child spawn point
+            if (fig == null) break;
+
             int index = Random.Range(0, spawnZone.childCount);
             Transform spawnPoint = spawnZone.GetChild(index);
+            GameObject spawned = fig.TrySpawnEnemy(spawnPoint.position);
 
-            Vector3 spawnPos = spawnPoint.position;
-           // Debug.Log($"Spawning enemy at {spawnPos}");
+            if (spawned == null) break;
 
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-
-            yield return new WaitForSeconds(1.5f); // delay between spawns
+            yield return new WaitForSeconds(1.5f);
         }
     }
+}
+
+
+    private IEnumerator SpawnEnemiesWithDelay(Minifigure figure, Transform spawnZone, int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        if (figure == null) yield break;
+
+        int index = Random.Range(0, spawnZone.childCount);
+        Transform spawnPoint = spawnZone.GetChild(index);
+        Vector3 spawnPos = spawnPoint.position;
+
+        GameObject spawned = figure.TrySpawnEnemy(spawnPos);
+        if (spawned == null)
+        {
+            // The figure is out of spawns and destroyed itself
+            yield break;
+        }
+
+        yield return new WaitForSeconds(1.5f);
+    }
+}
+
+    private Vector3 GetRandomPointOnLine(Transform start, Transform end)
+{
+    float t = Random.Range(0f, 1f);
+    return Vector3.Lerp(start.position, end.position, t);
+}
 
     private Transform GetSpawnZone(BoardSlot.Side side)
     {

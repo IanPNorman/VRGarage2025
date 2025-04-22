@@ -1,20 +1,30 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public class Minifigure : MonoBehaviour
 {
     public static event System.Action<Minifigure> OnGrabbed;
     public static event System.Action<Minifigure> OnReleased;
+
     public GameObject enemyPrefab;
+    public int maxSpawns = 5;
+    private int currentSpawnCount = 0;
+
+    [Header("UI")]
+    public TextMeshProUGUI spawnCountText;
 
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab;
     private BoardSlot currentNearbySlot = null;
+    private BoardSlot assignedSlot = null;
 
     private void Awake()
     {
         grab = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         grab.selectEntered.AddListener(_ => OnGrabbed?.Invoke(this));
         grab.selectExited.AddListener(OnReleasedHandler);
+
+        UpdateSpawnText();
     }
 
     private void OnReleasedHandler(SelectExitEventArgs args)
@@ -25,50 +35,79 @@ public class Minifigure : MonoBehaviour
         {
             currentNearbySlot.TryAssignFigure(this);
             grab.enabled = false;
+            assignedSlot = currentNearbySlot;
         }
     }
 
     private void OnTriggerEnter(Collider other)
-{
-    if (other.TryGetComponent(out BoardSlot slot))
     {
-        currentNearbySlot = slot;
-        slot.ShowHoverHighlight(true);
+        if (other.TryGetComponent(out BoardSlot slot))
+        {
+            currentNearbySlot = slot;
+            slot.ShowHoverHighlight(true);
+        }
     }
-}
 
-private void OnTriggerExit(Collider other)
-{
-    if (other.TryGetComponent(out BoardSlot slot) && slot == currentNearbySlot)
+    private void OnTriggerExit(Collider other)
     {
-        slot.ShowHoverHighlight(false);
-        currentNearbySlot = null;
+        if (other.TryGetComponent(out BoardSlot slot) && slot == currentNearbySlot)
+        {
+            slot.ShowHoverHighlight(false);
+            currentNearbySlot = null;
+        }
     }
-}
-
 
     public void SnapToSlot(Vector3 slotPosition)
-{
-    // Optional: adjust Y offset based on your model height
-    Vector3 finalPosition = slotPosition + new Vector3(0, 0.05f, 0);
-
-    transform.position = finalPosition;
-    transform.rotation = Quaternion.identity;
-
-    // Disable physics to stop flying/rolling
-    if (TryGetComponent(out Rigidbody rb))
     {
-        rb.isKinematic = true;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        Vector3 finalPosition = slotPosition + new Vector3(0, 0.05f, 0);
+        transform.position = finalPosition;
+        transform.rotation = Quaternion.identity;
+
+        if (TryGetComponent(out Rigidbody rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (grab != null)
+        {
+            grab.enabled = false;
+        }
     }
 
-    // Lock interaction
-    if (TryGetComponent(out UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab))
+    // ✅ Call this from WaveSpawner
+    public GameObject TrySpawnEnemy(Vector3 spawnPosition)
     {
-        grab.enabled = false;
-    }
-}
+        if (currentSpawnCount >= maxSpawns)
+        {
+            return null;
+        }
 
+        GameObject spawned = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        currentSpawnCount++;
+        UpdateSpawnText();
+
+        if (currentSpawnCount >= maxSpawns)
+        {
+            if (assignedSlot != null)
+            {
+                assignedSlot.isFilled = false;
+                assignedSlot.assignedFigure = null;
+            }
+
+            Destroy(gameObject);
+        }
+
+        return spawned;
+    }
+
+    private void UpdateSpawnText()
+    {
+        if (spawnCountText != null)
+        {
+            spawnCountText.text = (maxSpawns - currentSpawnCount).ToString();
+        }
+    }
 }
