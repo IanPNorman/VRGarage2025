@@ -14,6 +14,10 @@ public class Minifigure : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI spawnCountText;
 
+    [Header("Mana Cost")]
+    public int manaCost = 2;
+
+
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab;
     private BoardSlot currentNearbySlot = null;
     private BoardSlot assignedSlot = null;
@@ -28,16 +32,25 @@ public class Minifigure : MonoBehaviour
     }
 
     private void OnReleasedHandler(SelectExitEventArgs args)
-    {
-        OnReleased?.Invoke(this);
+{
+    OnReleased?.Invoke(this);
 
-        if (currentNearbySlot != null && !currentNearbySlot.isFilled)
+    if (currentNearbySlot != null && !currentNearbySlot.isFilled)
+    {
+        bool success = ManaManager.Instance?.SpendMana(manaCost) ?? true;
+
+        if (!success)
         {
-            currentNearbySlot.TryAssignFigure(this);
-            grab.enabled = false;
-            assignedSlot = currentNearbySlot;
+            Debug.Log("Not enough mana to place minifigure.");
+            return; // Don't place
         }
+
+        currentNearbySlot.TryAssignFigure(this);
+        grab.enabled = false;
+        assignedSlot = currentNearbySlot;
     }
+}
+
 
     private void OnTriggerEnter(Collider other)
     {
