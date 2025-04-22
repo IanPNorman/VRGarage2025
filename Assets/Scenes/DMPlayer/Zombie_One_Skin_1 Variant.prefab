@@ -231,6 +231,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie_One_Skin_1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4545334134948448844, guid: 6e8e3eabb876134468990d71a2b59349,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

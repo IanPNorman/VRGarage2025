@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 3072415678359674424}
   m_Layer: 0
   m_Name: testMiniFigure 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -791,6 +791,7 @@ MonoBehaviour:
     type: 3}
   maxSpawns: 5
   spawnCountText: {fileID: 5690204561238713279}
+  manaCost: 2
 --- !u!1 &7914742280419338768
 GameObject:
   m_ObjectHideFlags: 0
