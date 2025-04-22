@@ -11,10 +11,14 @@ public class BookRespawner : MonoBehaviour
     void Awake()
     {
         socket = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>();
+        if (socket == null)
+            Debug.LogError("[BookRespawner] No XRSocketInteractor found on object: " + gameObject.name);
     }
 
     void Update()
     {
+        if (socket == null) return;
+
         if (socket.hasSelection) return;
 
         timer += Time.deltaTime;
@@ -27,6 +31,12 @@ public class BookRespawner : MonoBehaviour
 
     private void SpawnBook()
     {
-        GameObject clone = Instantiate(bookPrefab, transform.position, transform.rotation);
+        if (bookPrefab == null)
+        {
+            Debug.LogWarning("[BookRespawner] No book prefab assigned.");
+            return;
+        }
+
+        Instantiate(bookPrefab, transform.position, transform.rotation);
     }
 }
