@@ -54,30 +54,32 @@ public class BasicBreakDoorState : BasicState
 
     IEnumerator damageDoor()
     {
-        healthHandler = targetDoor.GetComponent<HealthHandler>();
-        doorHealth = targetDoor.GetComponent<DoorHealth>();
+        if (healthHandler == null)
+            healthHandler = targetDoor.GetComponent<HealthHandler>();
 
-        if (healthHandler != null && healthHandler.CurrentHealth > 0)
+        if (doorHealth == null)
+            doorHealth = targetDoor.GetComponent<DoorHealth>();
+
+        if (healthHandler == null || doorHealth == null)
         {
-            doorHealth.getBarricade(damageDone).SetActive(false);
-            damageDone++;
-
-            healthHandler.HealthChanged(-1);
-        }
-        else
-        {
-            yield return new WaitForSeconds(2f);
-
-            doorIsBroken = true;
-
-            if (damageDoorCoroutine != null)
-                StopCoroutine(damageDoorCoroutine);
-
+            Debug.LogWarning("Missing HealthHandler or DoorHealth component!");
             yield break;
         }
 
-        yield return new WaitForSeconds(2f);
-        damageDoorCoroutine = StartCoroutine(damageDoor());
+        while (healthHandler.CurrentHealth > 0)
+        {
+            GameObject barricade = doorHealth.getBarricade(damageDone);
+            if (barricade != null)
+                barricade.SetActive(false);
+
+            damageDone++;
+            healthHandler.HealthChanged(-1);
+
+            yield return new WaitForSeconds(2f);
+        }
+        doorIsBroken = true;
+
+        damageDoorCoroutine = null;
     }
 
 }
