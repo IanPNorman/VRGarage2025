@@ -1,48 +1,34 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(Collider))]
-public class MiniFigureUISpawner : UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
+public class MiniFigureUIGrabbable : UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
 {
-    [Header("Prefab to spawn when grabbed")]
+    [Header("Prefab to Spawn")]
     public GameObject miniFigurePrefab;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        // Fully lock this object in place
-        if (TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-        }
-    }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
 
-        // Spawn the clone
-        GameObject clone = Instantiate(miniFigurePrefab, transform.position, transform.rotation);
-
-        // Transfer the grab to the clone
-        var interactor = args.interactorObject;
-        if (clone.TryGetComponent(out UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable))
+        if (miniFigurePrefab == null)
         {
-            interactionManager.SelectEnter(interactor, grabInteractable);
+            Debug.LogWarning("MiniFigureUIGrabbable: No prefab assigned!");
+            return;
         }
 
-        // Immediately force the original (UI) object to deselect and stay in place
-        interactionManager.SelectExit(interactor, this);
-    }
+        // Instantiate a new figure at the hand's attach point
+        Transform interactorAttach = args.interactorObject.transform;
 
-    // Prevent accidental deselection effects
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        base.OnSelectExited(args);
-        // Ensure the image doesn’t move or act up
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        GameObject clone = Instantiate(miniFigurePrefab, interactorAttach.position, interactorAttach.rotation);
+
+        // Grab the newly spawned object automatically
+        if (clone.TryGetComponent(out UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable))
+        {
+            var interactor = args.interactorObject as UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor;
+            grabInteractable.interactionManager.SelectEnter(interactor, grabInteractable);
+        }
+
+        // Destroy the UI clone to prevent it from lingering
+        Destroy(gameObject);
     }
 }
