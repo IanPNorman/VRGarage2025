@@ -6,7 +6,8 @@ public class BasicAttackPlayerState : BasicState
 {
     public bool finishedAttack;
     public BasicState BasicHuntPlayer;
-
+    public bool isAttacking;
+    public HealthBar healthBar; 
 
     private Coroutine attackCoroutine;
     private BoxCollider attackCollider;
@@ -38,16 +39,31 @@ public class BasicAttackPlayerState : BasicState
         if (attackCollider != null)
             attackCollider.enabled = false;
     }
-
+    public void OnTriggerEnter(Collider other)
+    {
+        if(isAttacking == true && other.CompareTag("Player"))
+        {
+            healthBar.Damage(1);
+            if (attackCollider != null)
+                attackCollider.enabled = false;
+        }
+    }
     private IEnumerator PerformAttack()
     {
         if (attackCollider != null)
+        {
             attackCollider.enabled = true;
+            isAttacking = true;
+        }
+
 
         yield return new WaitForSeconds(attackDuration);
 
         if (attackCollider != null)
+        {
             attackCollider.enabled = false;
+            isAttacking = false;
+        }
 
         finishedAttack = true;
         attackCoroutine = null;
