@@ -13,7 +13,7 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] float currentHealth;
 
     public float CurrentHealth => currentHealth;
-
+    public float MaxHealth => maxHealth;
 
     public void HealthChanged(float amount)
     {
