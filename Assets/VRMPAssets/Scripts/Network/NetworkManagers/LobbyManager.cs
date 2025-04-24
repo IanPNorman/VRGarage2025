@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
@@ -300,7 +300,10 @@ namespace XRMultiplayer
         {
             m_ConnectedLobby = lobby;
             m_Status.Value = "Connected To Lobby";
+
+            XRINetworkGameManager.ConnectedVariable.Value = true;
         }
+
 
         /// <summary>
         /// Heartbeat used to keep the lobby alive. By default the lobby will shut down after 30 seconds on inactivity.
