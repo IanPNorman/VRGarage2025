@@ -1,74 +1,126 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public class Minifigure : MonoBehaviour
 {
     public static event System.Action<Minifigure> OnGrabbed;
     public static event System.Action<Minifigure> OnReleased;
+
     public GameObject enemyPrefab;
+    public int maxSpawns = 5;
+    private int currentSpawnCount = 0;
+
+    [Header("UI")]
+    public TextMeshProUGUI spawnCountText;
+
+    [Header("Mana Cost")]
+    public int manaCost = 2;
+
 
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab;
     private BoardSlot currentNearbySlot = null;
+    private BoardSlot assignedSlot = null;
 
     private void Awake()
     {
         grab = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         grab.selectEntered.AddListener(_ => OnGrabbed?.Invoke(this));
         grab.selectExited.AddListener(OnReleasedHandler);
+
+        UpdateSpawnText();
     }
 
     private void OnReleasedHandler(SelectExitEventArgs args)
-    {
-        OnReleased?.Invoke(this);
+{
+    OnReleased?.Invoke(this);
 
-        if (currentNearbySlot != null && !currentNearbySlot.isFilled)
+    if (currentNearbySlot != null && !currentNearbySlot.isFilled)
+    {
+        bool success = ManaManager.Instance?.SpendMana(manaCost) ?? true;
+
+        if (!success)
         {
-            currentNearbySlot.TryAssignFigure(this);
+            Debug.Log("Not enough mana to place minifigure.");
+            return; // Don't place
+        }
+
+        currentNearbySlot.TryAssignFigure(this);
+        grab.enabled = false;
+        assignedSlot = currentNearbySlot;
+    }
+}
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out BoardSlot slot))
+        {
+            currentNearbySlot = slot;
+            slot.ShowHoverHighlight(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out BoardSlot slot) && slot == currentNearbySlot)
+        {
+            slot.ShowHoverHighlight(false);
+            currentNearbySlot = null;
+        }
+    }
+
+    public void SnapToSlot(Vector3 slotPosition)
+    {
+        Vector3 finalPosition = slotPosition + new Vector3(0, 0.05f, 0);
+        transform.position = finalPosition;
+        transform.rotation = Quaternion.identity;
+
+        if (TryGetComponent(out Rigidbody rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (grab != null)
+        {
             grab.enabled = false;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-{
-    if (other.TryGetComponent(out BoardSlot slot))
+    // ✅ Call this from WaveSpawner
+    public GameObject TrySpawnEnemy(Vector3 spawnPosition)
     {
-        currentNearbySlot = slot;
-        slot.ShowHoverHighlight(true);
-    }
-}
+        if (currentSpawnCount >= maxSpawns)
+        {
+            return null;
+        }
 
-private void OnTriggerExit(Collider other)
-{
-    if (other.TryGetComponent(out BoardSlot slot) && slot == currentNearbySlot)
-    {
-        slot.ShowHoverHighlight(false);
-        currentNearbySlot = null;
-    }
-}
+        GameObject spawned = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        currentSpawnCount++;
+        UpdateSpawnText();
 
+        if (currentSpawnCount >= maxSpawns)
+        {
+            if (assignedSlot != null)
+            {
+                assignedSlot.isFilled = false;
+                assignedSlot.assignedFigure = null;
+            }
 
-    public void SnapToSlot(Vector3 slotPosition)
-{
-    // Optional: adjust Y offset based on your model height
-    Vector3 finalPosition = slotPosition + new Vector3(0, 0.05f, 0);
+            Destroy(gameObject);
+        }
 
-    transform.position = finalPosition;
-    transform.rotation = Quaternion.identity;
-
-    // Disable physics to stop flying/rolling
-    if (TryGetComponent(out Rigidbody rb))
-    {
-        rb.isKinematic = true;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        return spawned;
     }
 
-    // Lock interaction
-    if (TryGetComponent(out UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab))
+    private void UpdateSpawnText()
     {
-        grab.enabled = false;
+        if (spawnCountText != null)
+        {
+            spawnCountText.text = (maxSpawns - currentSpawnCount).ToString();
+        }
     }
-}
-
 }
