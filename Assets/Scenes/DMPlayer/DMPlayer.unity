@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 6230519}
   - component: {fileID: 6230520}
   m_Layer: 0
-  m_Name: Slot6
+  m_Name: Slot11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -270,6 +270,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1544222324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &10879975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10879976}
+  m_Layer: 0
+  m_Name: EndPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &10879976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10879975}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.34678882, y: 0.76292294, z: -0.095932364, w: 0.5371062}
+  m_LocalPosition: {x: -6.766, y: -2.882, z: 2.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189690124}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &24826961
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 97492355}
   m_Layer: 0
-  m_Name: 'EndPoint '
+  m_Name: EndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,7 +424,7 @@ Transform:
   m_GameObject: {fileID: 97492354}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5699997, y: 0, z: 0}
+  m_LocalPosition: {x: -6.8, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -767,7 +798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 0
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -1035,7 +1066,7 @@ GameObject:
   - component: {fileID: 273299045}
   - component: {fileID: 273299046}
   m_Layer: 0
-  m_Name: Slot10
+  m_Name: Slot15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,7 +1086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -1239,7 +1270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -1443,7 +1474,7 @@ GameObject:
   - component: {fileID: 344688498}
   - component: {fileID: 344688499}
   m_Layer: 0
-  m_Name: Slot8
+  m_Name: Slot18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,7 +1494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -1636,7 +1667,9 @@ Transform:
   m_LocalPosition: {x: -14.25, y: -12.42, z: 32.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1933935094}
+  - {fileID: 1490238533}
   m_Father: {fileID: 1314812164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &413085970
@@ -1863,7 +1896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 0
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -3061,7 +3094,7 @@ GameObject:
   - component: {fileID: 673258151}
   - component: {fileID: 673258152}
   m_Layer: 0
-  m_Name: Slot6
+  m_Name: Slot16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3081,7 +3114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -4550,7 +4583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855510858}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47117e2bd36cf474f921a586a0e1d8e7, type: 3}
   m_Name: 
@@ -4935,7 +4968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -5145,7 +5178,7 @@ GameObject:
   - component: {fileID: 990783853}
   - component: {fileID: 990783854}
   m_Layer: 0
-  m_Name: Slot9
+  m_Name: Slot14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5165,7 +5198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -5278,12 +5311,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1544222324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1026534550 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4864633273383317598, guid: 54de44bb26a31c54c909724e701d35fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 7891590365361405869}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047912215
 GameObject:
   m_ObjectHideFlags: 0
@@ -5355,7 +5382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -5559,6 +5586,37 @@ Transform:
   - {fileID: 750908981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1093589735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1093589736}
+  m_Layer: 0
+  m_Name: StartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1093589736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093589735}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.34678882, y: 0.76292294, z: -0.095932364, w: 0.5371062}
+  m_LocalPosition: {x: 19.72, y: 4.74, z: -8.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189690124}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1099782280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5653,7 +5711,7 @@ GameObject:
   - component: {fileID: 1105716921}
   - component: {fileID: 1105716922}
   m_Layer: 0
-  m_Name: Slot7
+  m_Name: Slot12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5673,7 +5731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -5929,7 +5987,9 @@ Transform:
   m_LocalPosition: {x: 19.9, y: -10.06, z: 25.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1093589736}
+  - {fileID: 10879976}
   m_Father: {fileID: 1314812164}
   m_LocalEulerAnglesHint: {x: 31.259, y: -118.251, z: -29.898}
 --- !u!1001 &1208098556
@@ -6105,7 +6165,7 @@ GameObject:
   - component: {fileID: 1255528452}
   - component: {fileID: 1255528453}
   m_Layer: 0
-  m_Name: Slot8
+  m_Name: Slot13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6125,7 +6185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -6594,8 +6654,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6901,7 +6961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setupTime: 30
   countdownThreshold: 5
-  enemiesPerMinifigure: 5
+  enemiesPerMinifigure: 3
   countdownText: {fileID: 1521400977}
   countdownUI: {fileID: 202114774}
   setupPhaseUI: {fileID: 867466145}
@@ -6911,21 +6971,21 @@ MonoBehaviour:
   - {fileID: 199490138}
   - {fileID: 461247307}
   - {fileID: 1888824230}
-  - {fileID: 1888824230}
   - {fileID: 1320949529}
   - {fileID: 283056921}
   - {fileID: 1047912218}
   - {fileID: 1576460002}
   - {fileID: 971712569}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
-  - {fileID: 1888824230}
+  - {fileID: 6230519}
+  - {fileID: 1105716921}
+  - {fileID: 1255528452}
+  - {fileID: 990783853}
+  - {fileID: 273299045}
+  - {fileID: 673258151}
+  - {fileID: 1780899459}
+  - {fileID: 344688498}
+  - {fileID: 1880585605}
+  - {fileID: 1436740845}
   northZone: {fileID: 1086266696}
   southZone: {fileID: 291368711}
   eastZone: {fileID: 393297948}
@@ -6984,7 +7044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -7485,7 +7545,7 @@ GameObject:
   - component: {fileID: 1436740845}
   - component: {fileID: 1436740846}
   m_Layer: 0
-  m_Name: Slot10
+  m_Name: Slot20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7505,7 +7565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -7698,7 +7758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb5e340a0a3fab48a4ce5584c2f0d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniFigurePrefab: {fileID: 1026534550}
+  miniFigurePrefab: {fileID: 4864633273383317598, guid: 54de44bb26a31c54c909724e701d35fa,
+    type: 3}
   spawnPoint: {fileID: 0}
 --- !u!114 &1456368595
 MonoBehaviour:
@@ -7970,6 +8031,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472699857}
   m_CullTransparentMesh: 1
+--- !u!1 &1490238532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1490238533}
+  m_Layer: 0
+  m_Name: EndPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1490238533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490238532}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3, y: 0.88, z: -15.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 393297948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1500692445
 GameObject:
   m_ObjectHideFlags: 0
@@ -8857,7 +8949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -10187,7 +10279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 0
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -10487,7 +10579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1688353894}
   m_Layer: 0
-  m_Name: 'StartPoint '
+  m_Name: StartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10502,8 +10594,8 @@ Transform:
   m_GameObject: {fileID: 1688353893}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.84, y: 0, z: 0}
-  m_LocalScale: {x: 1.64, y: 1, z: 1}
+  m_LocalPosition: {x: 16.84, y: 0, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 291368711}
@@ -10693,7 +10785,7 @@ GameObject:
   - component: {fileID: 1780899459}
   - component: {fileID: 1780899460}
   m_Layer: 0
-  m_Name: Slot7
+  m_Name: Slot17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10713,7 +10805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -10998,7 +11090,7 @@ GameObject:
   - component: {fileID: 1880585605}
   - component: {fileID: 1880585606}
   m_Layer: 0
-  m_Name: Slot9
+  m_Name: Slot19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11018,7 +11110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 1
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -11276,7 +11368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSide: 0
   highlightMat: {fileID: 2100000, guid: 53c16fb5d5c516b40a1f6a8fc34132f3, type: 2}
-  hoverMat: {fileID: 0}
+  hoverMat: {fileID: 2100000, guid: 052af9a2a43aada4397b85f6e6d70ae7, type: 2}
   placementOffset: {x: 0, y: 2, z: 0}
   isFilled: 0
   assignedFigure: {fileID: 0}
@@ -11688,6 +11780,37 @@ Transform:
   - {fileID: 1304743742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1933935093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933935094}
+  m_Layer: 0
+  m_Name: StartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1933935094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933935093}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3, y: 1.13, z: 16.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 393297948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958719492
 GameObject:
   m_ObjectHideFlags: 0
@@ -11745,7 +11868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hallow
+  m_text: 'Healing Zone
 
     Cost - 2
 
@@ -12252,7 +12375,7 @@ PrefabInstance:
     - target: {fileID: 338479831336219105, guid: 74b3f477097f7ab4fae7c3eda67609b3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1359863119036574829, guid: 74b3f477097f7ab4fae7c3eda67609b3,
         type: 3}
@@ -12304,6 +12427,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2575978281356661127, guid: 74b3f477097f7ab4fae7c3eda67609b3,
+        type: 3}
+      propertyPath: duration
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12322,6 +12450,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 711749404}
+    - target: {fileID: 3072415678359674424, guid: b758d46b746c6954190600ad35823607,
+        type: 3}
+      propertyPath: maxSpawns
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3398547795485246342, guid: b758d46b746c6954190600ad35823607,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12398,7 +12531,7 @@ PrefabInstance:
     - target: {fileID: 4467387470113968426, guid: 54de44bb26a31c54c909724e701d35fa,
         type: 3}
       propertyPath: destroyDelay
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4467387470113968426, guid: 54de44bb26a31c54c909724e701d35fa,
         type: 3}
@@ -12410,6 +12543,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HealingSpell
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864633273383317598, guid: 54de44bb26a31c54c909724e701d35fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7475557158058112877, guid: 54de44bb26a31c54c909724e701d35fa,
         type: 3}

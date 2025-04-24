@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class HealingSpell : MonoBehaviour
+
+public class HealingSpell : UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
 {
     [Header("Prefabs")]
     public GameObject healingZonePrefab;
@@ -9,7 +10,10 @@ public class HealingSpell : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Optional VFX Cleanup Delay")]
-    public float destroyDelay = 0f; // Set to 0 for instant
+    public float destroyDelay = 0f;
+
+    [Header("Mana Settings")]
+    public int manaCost = 3;
 
     private bool hasLanded = false;
 
@@ -17,19 +21,34 @@ public class HealingSpell : MonoBehaviour
     {
         if (hasLanded) return;
 
-        // Check if collided object is on the ground layer
+        // Check if it hit the ground
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
         {
-            hasLanded = true;
+            if (ManaManager.Instance != null && ManaManager.Instance.SpendMana(manaCost))
+            {
+                hasLanded = true;
 
-            // Spawn the healing zone at impact point
-            Instantiate(healingZonePrefab, transform.position, Quaternion.identity);
+                // Spawn healing zone
+                Instantiate(healingZonePrefab, transform.position, Quaternion.identity);
 
-            // Destroy the spell object immediately (or after delay)
-            if (destroyDelay > 0f)
-                Destroy(gameObject, destroyDelay);
+                // Destroy the ball
+                if (destroyDelay > 0f)
+                    Destroy(gameObject, destroyDelay);
+                else
+                    Destroy(gameObject);
+            }
             else
-                Destroy(gameObject);
+            {
+                Debug.Log("Not enough mana to activate healing spell.");
+            }
         }
+    }
+
+    // Block grabbing if player can't afford it
+    public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor)
+    {
+        return ManaManager.Instance != null &&
+               ManaManager.Instance.GetCurrentMana() >= manaCost &&
+               base.IsSelectableBy(interactor);
     }
 }
