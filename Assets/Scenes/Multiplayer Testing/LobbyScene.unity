@@ -1336,8 +1336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToEnableOnline:
   - {fileID: 166435526}
-  - {fileID: 1674171132}
-  - {fileID: 1201733727}
   objectsToEnableOffline:
   - {fileID: 1674171132}
   - {fileID: 1201733727}
