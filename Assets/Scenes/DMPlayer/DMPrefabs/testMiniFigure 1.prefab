@@ -787,9 +787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9661f99bff80646a44b800c871f3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8391322763360293306, guid: 2598d29174bd9d1479c730cc2a27f33d,
+  enemyPrefab: {fileID: 1445867608235680568, guid: e3696d23800c75b4ba095ca616bd4775,
     type: 3}
-  maxSpawns: 5
+  maxSpawns: 3
   spawnCountText: {fileID: 5690204561238713279}
   manaCost: 2
 --- !u!1 &7914742280419338768

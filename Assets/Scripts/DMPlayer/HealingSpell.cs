@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class HealingSpell : MonoBehaviour
+public class HealingSpell : XRGrabInteractable
 {
     [Header("Prefabs")]
     public GameObject healingZonePrefab;
@@ -9,7 +10,7 @@ public class HealingSpell : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Optional VFX Cleanup Delay")]
-    public float destroyDelay = 0f; // Set to 0 for instant
+    public float destroyDelay = 0f;
 
     private bool hasLanded = false;
 
@@ -17,15 +18,15 @@ public class HealingSpell : MonoBehaviour
     {
         if (hasLanded) return;
 
-        // Check if collided object is on the ground layer
+        // Check if it hit the ground
         if (((1 << collision.gameObject.layer) & groundLayer.value) != 0)
         {
             hasLanded = true;
 
-            // Spawn the healing zone at impact point
+            // Spawn healing zone
             Instantiate(healingZonePrefab, transform.position, Quaternion.identity);
 
-            // Destroy the spell object immediately (or after delay)
+            // Destroy the ball
             if (destroyDelay > 0f)
                 Destroy(gameObject, destroyDelay);
             else

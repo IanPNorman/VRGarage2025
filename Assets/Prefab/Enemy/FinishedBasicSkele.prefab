@@ -117,6 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finishedAttack: 0
   BasicHuntPlayer: {fileID: 3978166901806055479}
+  isAttacking: 0
+  healthBar: {fileID: 0}
   attackDuration: 1.5
 --- !u!65 &5430610407116261563
 BoxCollider:
@@ -346,6 +348,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FinishedBasicSkele
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: c0e8ec4be6a4d554881a5c8bb6d0c0cf,
         type: 3}

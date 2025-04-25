@@ -24,6 +24,7 @@ public class WaveSpawner : MonoBehaviour
     private float roundTimer = 0f;
     private bool roundActive = false;
     private bool countdownShown = false;
+    private bool waveSpawningFinished = false;
 
     private void Start()
     {
@@ -48,23 +49,21 @@ public class WaveSpawner : MonoBehaviour
                 StartWave();
             }
         }
-        else
-        {
-            // Only end round if all enemies are dead
-            if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
-            {
-                BeginSetupPhase();
-            }
-        }
     }
 
     private void BeginSetupPhase()
     {
-        Debug.Log("WaveSpawner: Setup Phase started.");
+        Debug.Log(">> Round has ended. Back to setup phase.");
         ManaManager.Instance?.ResetManaForRound();
         roundActive = false;
         roundTimer = 0f;
         countdownShown = false;
+
+        if (countdownUI != null)
+        {
+            countdownUI.SetActive(false);
+            countdownText.text = "30";
+        }
 
         if (setupPhaseUI != null)
             setupPhaseUI.SetActive(true);
@@ -72,13 +71,13 @@ public class WaveSpawner : MonoBehaviour
 
     private void StartWave()
     {
-        Debug.Log("WaveSpawner: Starting round.");
+        Debug.Log(">> Round has officially started!");
         roundActive = true;
 
         if (setupPhaseUI != null)
             setupPhaseUI.SetActive(false);
 
-        SpawnWave();
+        StartCoroutine(HandleSpawnAndEnemyCheck());
     }
 
     private IEnumerator CountdownCoroutine(int seconds)
@@ -96,7 +95,31 @@ public class WaveSpawner : MonoBehaviour
         if (countdownUI != null) countdownUI.SetActive(false);
     }
 
-    private void SpawnWave()
+    private IEnumerator HandleSpawnAndEnemyCheck()
+    {
+        waveSpawningFinished = false;
+        yield return StartCoroutine(SpawnWaveSequential());
+        waveSpawningFinished = true;
+
+        yield return new WaitForSeconds(2f); // Delay before starting to check for enemies
+        StartCoroutine(CheckForRemainingEnemies());
+    }
+
+    private IEnumerator CheckForRemainingEnemies()
+    {
+        while (roundActive)
+        {
+            if (EnemyManager.Instance != null && EnemyManager.Instance.GetActiveEnemyCount() == 0)
+            {
+                BeginSetupPhase();
+                yield break;
+            }
+
+            yield return new WaitForSeconds(1f); // Check every second
+        }
+    }
+
+    private IEnumerator SpawnWaveSequential()
     {
         Dictionary<BoardSlot.Side, List<BoardSlot>> groupedSlots = new();
 
@@ -108,13 +131,15 @@ public class WaveSpawner : MonoBehaviour
             groupedSlots[slot.boardSide].Add(slot);
         }
 
-        foreach (var kvp in groupedSlots)
+        List<BoardSlot.Side> sideOrder = groupedSlots.Keys.OrderBy(_ => Random.value).ToList();
+
+        foreach (var side in sideOrder)
         {
-            List<BoardSlot> sideSlots = kvp.Value;
-            Transform spawnZone = GetSpawnZone(kvp.Key);
+            Transform spawnZone = GetSpawnZone(side);
             if (spawnZone == null || spawnZone.childCount == 0) continue;
 
-            StartCoroutine(SpawnFromSideSorted(sideSlots, spawnZone));
+            List<BoardSlot> sideSlots = groupedSlots[side];
+            yield return StartCoroutine(SpawnFromSideSorted(sideSlots, spawnZone));
         }
     }
 
@@ -145,7 +170,10 @@ public class WaveSpawner : MonoBehaviour
                 Vector3 spawnPos = GetRandomPointOnLine(start, end);
                 GameObject spawned = fig.TrySpawnEnemy(spawnPos);
 
-                if (spawned == null) break;
+                if (spawned != null)
+                {
+                    EnemyManager.Instance?.RegisterEnemy(spawned);
+                }
 
                 yield return new WaitForSeconds(1.5f);
             }
