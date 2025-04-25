@@ -6,7 +6,7 @@ public class XRNetworkRigManager : MonoBehaviour
 {
     public static XRNetworkRigManager Instance;
 
-    private List<GameObject> rigs = new List<GameObject>();
+    public List<GameObject> rigs = new List<GameObject>();
     private Coroutine refreshRoutine;
 
     private void Awake()
