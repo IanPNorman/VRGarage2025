@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using Unity.Netcode;
 using UnityEngine;
-using Unity.Netcode;
 
 public class XRPlayerOwnershipHandler : NetworkBehaviour
 {
@@ -14,14 +13,17 @@ public class XRPlayerOwnershipHandler : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        // Don't trust ownership here anymore — wait for OnGainedOwnership
-        if (!IsOwner)
+        if (IsOwner)
         {
-            Debug.Log("[XRPlayerOwnershipHandler] Not the owner. Disabling remote rig.");
+            XRNetworkRigManager.Instance?.RegisterRig(gameObject);
+            EnableLocalRig();
+        }
+        else
+        {
+            Debug.Log("[XRPlayerOwnershipHandler] Remote player detected. Disabling XR Rig.");
             DisableRemoteRig();
         }
     }
-
 
     private void EnableLocalRig()
     {
@@ -39,10 +41,7 @@ public class XRPlayerOwnershipHandler : NetworkBehaviour
             if (cam != null)
                 cam.enabled = true;
         }
-
-        StartCoroutine(ReenableXRRigNextFrame());
     }
-
 
     private void DisableRemoteRig()
     {
@@ -61,22 +60,4 @@ public class XRPlayerOwnershipHandler : NetworkBehaviour
                 cam.enabled = false;
         }
     }
-
-    private IEnumerator ReenableXRRigNextFrame()
-    {
-        yield return null; 
-        yield return null;
-
-        Debug.Log("[XRPlayerOwnershipHandler] Forcing reactivation of XR rig to ensure tracking is reconnected.");
-
-
-        if (xrOrigin.activeInHierarchy)
-        {
-            xrOrigin.SetActive(false);
-            yield return null;
-            xrOrigin.SetActive(true);
-        }
-
-    }
-
 }

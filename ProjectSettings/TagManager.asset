@@ -10,6 +10,7 @@ TagManager:
   - PlayerHand
   - Destroyer
   - Door
+  - LobbyRig
   layers:
   - Default
   - TransparentFX

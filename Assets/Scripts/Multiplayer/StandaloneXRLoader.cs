@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR;
 
 public class StandaloneXRLoader : MonoBehaviour
@@ -22,7 +22,8 @@ public class StandaloneXRLoader : MonoBehaviour
         Quaternion spawnRot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
         GameObject rig = Instantiate(xrRigPrefab, spawnPos, spawnRot);
-        rig.name = "Local_XR_Rig";
+        rig.name = "Local_XR_Rig"; // ✅ Ensure name is consistent
+        rig.tag = "TempXR";        // ✅ Optionally tag it (create tag if needed)
 
         Debug.Log("[StandaloneXRLoader] XR Rig spawned successfully.");
     }
