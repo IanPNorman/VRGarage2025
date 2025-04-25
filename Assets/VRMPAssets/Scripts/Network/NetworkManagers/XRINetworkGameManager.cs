@@ -46,6 +46,8 @@ namespace XRMultiplayer
             Connected
         }
 
+        public static BindableVariable<bool> ConnectedVariable => m_Connected;
+
         /// <summary>
         /// Max amount of players allowed when creating a new room.
         /// </summary>

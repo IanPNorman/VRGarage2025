@@ -1,12 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-=======
 <<<<<<<< HEAD:Assets/Scripts/Multiplayer.meta
-guid: 8b9beb145ea3ca8448c94a95b2742fad
+guid: 1cba43cc59b2c834cbfeea16e6c86f99
 folderAsset: yes
 ========
->>>>>>> Stashed changes
 guid: f9016e723c093e243b79bc425d35303c
+>>>>>>>> nathanBranch:Assets/Scenes/DMPlayer/zombie 1.webp.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

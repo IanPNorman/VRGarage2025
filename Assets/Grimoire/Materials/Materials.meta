@@ -1,15 +1,14 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-=======
 <<<<<<<< HEAD:Assets/VertexRageStudio/LowPolyNature/Materials/Base Material Variant.mat.meta
-guid: 94926810ab91d3f419f2422c35e59afa
+guid: c70b3740e8cd5944c99ef4962508cec3
 NativeFormatImporter:
 ========
->>>>>>> Stashed changes
 guid: 312d80928bac1744ab5d83ac6d3820c4
 folderAsset: yes
 DefaultImporter:
+>>>>>>>> nathanBranch:Assets/Grimoire/Materials/Materials.meta
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
