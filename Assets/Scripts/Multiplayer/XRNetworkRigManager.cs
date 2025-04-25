@@ -1,60 +1,47 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class XRNetworkRigManager : MonoBehaviour
+public class XRRefreshManager : MonoBehaviour
 {
-    public static XRNetworkRigManager Instance;
-
-    public List<GameObject> allRigs = new List<GameObject>();
-    public float refreshInterval = 1f;
-
-    private float refreshTimer;
-
-    private void Awake()
+    private void OnEnable()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        refreshTimer += Time.deltaTime;
-        if (refreshTimer >= refreshInterval)
-        {
-            RefreshRigList();
-            StartCoroutine(DisableAndEnableAllRigs());
-            refreshTimer = 0f;
-        }
+        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
     }
 
-    private void RefreshRigList()
+    private void OnClientConnected(ulong clientId)
     {
-        allRigs.Clear();
-        GameObject[] rigs = GameObject.FindGameObjectsWithTag("Player");
-        allRigs.AddRange(rigs);
-        Debug.Log($"[XRNetworkRigManager] Found {allRigs.Count} XR rigs.");
+        Debug.Log($"[XRRefreshManager] New client connected: {clientId}. Refreshing all XR Rigs.");
+        StartCoroutine(RefreshAllRigs());
     }
 
-    private System.Collections.IEnumerator DisableAndEnableAllRigs()
+    private IEnumerator RefreshAllRigs()
     {
-        foreach (GameObject rig in allRigs)
+        // Wait for player rig to be instantiated
+        yield return new WaitForSeconds(0.5f);
+
+        GameObject[] rigs = GameObject.FindGameObjectsWithTag("LobbyRig");
+
+        Debug.Log($"[XRRefreshManager] Found {rigs.Length} rigs to refresh.");
+
+        foreach (GameObject rig in rigs)
         {
-            if (rig != null)
-                rig.SetActive(false);
+            if (rig != null) rig.SetActive(false);
         }
 
         yield return new WaitForSeconds(0.5f); // Delay between disable and enable
 
-        foreach (GameObject rig in allRigs)
+        foreach (GameObject rig in rigs)
         {
-            if (rig != null)
-                rig.SetActive(true);
+            if (rig != null) rig.SetActive(true);
         }
 
-        Debug.Log("[XRNetworkRigManager] Refreshed all rigs.");
+        Debug.Log("[XRRefreshManager] XR rigs re-enabled.");
     }
 }
