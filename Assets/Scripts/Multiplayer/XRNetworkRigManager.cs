@@ -40,7 +40,7 @@ public class XRNetworkRigManager : MonoBehaviour
         }
 
         // Step 2: Wait for 0.5 seconds
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(4f);
 
         // Step 3: Enable all rigs
         foreach (var rig in rigs)
