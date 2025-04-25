@@ -1,34 +1,29 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRNetworkRigController : NetworkBehaviour
 {
-    public GameObject localOnlyObjects; // Ray Interactors, UI, callouts, etc.
-    public GameObject visualsToHideFromOwner; // Head/hand models
+    [Header("Local-only Systems (disabled for remote)")]
+    public GameObject[] localOnlyObjects;
 
-    public PlayerInput playerInput; // From Unity's Input System
+    //[Header("Visuals to hide for self (hands/head)")]
+    //public GameObject[] hideFromOwnerVisuals;
 
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
-
         if (IsOwner)
         {
-            // This is the local XR rig
-            localOnlyObjects?.SetActive(true);
+            foreach (var go in localOnlyObjects)
+                if (go != null) go.SetActive(true);
 
-            // Optionally hide your own head/hands from self
-            visualsToHideFromOwner?.SetActive(false);
+            //foreach (var go in hideFromOwnerVisuals)
+                //if (go != null) go.SetActive(false); // hide own hands/head if desired
         }
         else
         {
-            // This is another player's XR rig — disable all interactive input
-            playerInput.enabled = false;
-
-            // OPTIONAL: also disable interactors
-            localOnlyObjects?.SetActive(false);
+            foreach (var go in localOnlyObjects)
+                if (go != null) go.SetActive(false);
         }
+        
     }
 }
