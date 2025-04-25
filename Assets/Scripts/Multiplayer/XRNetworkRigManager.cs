@@ -3,45 +3,85 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class XRRefreshManager : MonoBehaviour
+public class XRNetworkRigManager : NetworkBehaviour
 {
-    private void OnEnable()
+    public static XRNetworkRigManager Instance;
+
+    [Header("Tracked XR Rigs")]
+    public List<GameObject> xrRigs = new List<GameObject>();
+
+    private void Awake()
     {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    private void OnDisable()
+    public override void OnNetworkSpawn()
     {
-        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+        if (IsServer)
+        {
+            NetworkManager.OnClientConnectedCallback += OnClientConnected;
+        }
     }
 
     private void OnClientConnected(ulong clientId)
     {
-        Debug.Log($"[XRRefreshManager] New client connected: {clientId}. Refreshing all XR Rigs.");
-        StartCoroutine(RefreshAllRigs());
+        // Only tell the specific client to refresh their XR rig
+        TriggerRefresh(clientId);
     }
 
-    private IEnumerator RefreshAllRigs()
+    public void TriggerRefresh(ulong clientId)
     {
-        // Wait for player rig to be instantiated
+        if (IsServer)
+        {
+            RefreshRigClientRpc(clientId);
+        }
+    }
+
+    [ClientRpc]
+    private void RefreshRigClientRpc(ulong targetClientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId != targetClientId)
+            return;
+
+        Debug.Log($"[XRNetworkRigManager] Refreshing XR rig for local client {targetClientId}...");
+        StartCoroutine(RefreshMyRig());
+    }
+
+    private IEnumerator RefreshMyRig()
+    {
+        GameObject myRig = null;
+
+        var allRigs = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (var rig in allRigs)
+        {
+            if (rig.CompareTag("XRPlayer") && rig.scene.name != null)
+            {
+                var netObj = rig.GetComponent<NetworkObject>();
+                if (netObj != null && netObj.IsOwner)
+                {
+                    myRig = rig;
+                    break;
+                }
+            }
+        }
+
+        if (myRig == null)
+        {
+            Debug.LogWarning("[XRNetworkRigManager] Could not find local XR rig to refresh.");
+            yield break;
+        }
+
+        myRig.SetActive(false);
         yield return new WaitForSeconds(0.5f);
+        myRig.SetActive(true);
 
-        GameObject[] rigs = GameObject.FindGameObjectsWithTag("LobbyRig");
-
-        Debug.Log($"[XRRefreshManager] Found {rigs.Length} rigs to refresh.");
-
-        foreach (GameObject rig in rigs)
-        {
-            if (rig != null) rig.SetActive(false);
-        }
-
-        yield return new WaitForSeconds(0.5f); // Delay between disable and enable
-
-        foreach (GameObject rig in rigs)
-        {
-            if (rig != null) rig.SetActive(true);
-        }
-
-        Debug.Log("[XRRefreshManager] XR rigs re-enabled.");
+        Debug.Log("[XRNetworkRigManager] XR rig successfully refreshed.");
     }
 }

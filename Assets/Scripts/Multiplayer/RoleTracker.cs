@@ -12,7 +12,6 @@ public class RoleManager : NetworkBehaviour
     public GameObject survivorPrefab;
     public GameObject lobbyPlayerPrefab;
 
-
     private Dictionary<ulong, PlayerRole> playerRoles = new Dictionary<ulong, PlayerRole>();
 
     public NetworkVariable<int> gameMasterCount = new NetworkVariable<int>(0);
@@ -40,6 +39,13 @@ public class RoleManager : NetworkBehaviour
         if (IsServer)
         {
             NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+
+            NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
+            {
+                Debug.Log($"[RoleManager] Client {clientId} connected.");
+                // ✅ Refresh their local XR rig
+                XRNetworkRigManager.Instance?.TriggerRefresh(clientId);
+            };
         }
     }
 
@@ -94,29 +100,28 @@ public class RoleManager : NetworkBehaviour
 
         GameObject prefabToSpawn;
 
-        if (sceneName == "BasicScene") 
+        if (sceneName == "BasicScene")
         {
             prefabToSpawn = lobbyPlayerPrefab;
-            Debug.Log($"[OnSceneLoaded] Spawning lobby player prefab for client {clientId}");
         }
         else
         {
             PlayerRole role = GetRole(clientId);
             prefabToSpawn = role == PlayerRole.GameMaster ? gameMasterPrefab : survivorPrefab;
-            Debug.Log($"[OnSceneLoaded] Spawning {role} prefab for client {clientId}");
         }
 
         if (prefabToSpawn == null)
         {
-            Debug.LogError($"[OnSceneLoaded] Prefab for {sceneName} is NULL! Check RoleManager inspector.");
+            Debug.LogError($"[OnSceneLoaded] No prefab found for scene: {sceneName}");
             return;
         }
 
         Vector3 spawnPos = new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
         GameObject player = Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
-    }
 
+        Debug.Log($"[OnSceneLoaded] Spawned {prefabToSpawn.name} for client {clientId}");
+    }
 }
 
 public enum PlayerRole
