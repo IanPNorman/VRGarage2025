@@ -6,6 +6,9 @@ public class MiniFigureUISpawner : MonoBehaviour
     [Header("Prefab to spawn when selected")]
     public GameObject miniFigurePrefab;
 
+    [Header("Mana Cost of the Minifigure")]
+    public int manaCost = 2;
+
     [Header("Optional: spawn offset (else spawns in hand)")]
     public Transform spawnPoint;
 
@@ -55,7 +58,15 @@ public class MiniFigureUISpawner : MonoBehaviour
             return;
         }
 
-        Debug.Log("[MiniFigureUISpawner] Minifigure icon selected.");
+        // ✅ Check for mana before spawning
+        if (ManaManager.Instance != null && ManaManager.Instance.GetCurrentMana() < manaCost)
+        {
+            Debug.Log("[MiniFigureUISpawner] Not enough mana to spawn.");
+            return;
+        }
+
+        // ✅ Spend mana
+        ManaManager.Instance?.SpendMana(manaCost);
 
         // Spawn at hand location or optional spawn point
         Transform handTransform = args.interactorObject.transform;
@@ -75,8 +86,6 @@ public class MiniFigureUISpawner : MonoBehaviour
                     (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor)args.interactorObject,
                     (UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable)grabInteractable
                 );
-
-                Debug.Log("[MiniFigureUISpawner] Spawned minifigure and handed it to interactor.");
             }
             else
             {

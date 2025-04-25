@@ -17,7 +17,6 @@ public class Minifigure : MonoBehaviour
     [Header("Mana Cost")]
     public int manaCost = 2;
 
-
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab;
     private BoardSlot currentNearbySlot = null;
     private BoardSlot assignedSlot = null;
@@ -32,25 +31,24 @@ public class Minifigure : MonoBehaviour
     }
 
     private void OnReleasedHandler(SelectExitEventArgs args)
-{
-    OnReleased?.Invoke(this);
-
-    if (currentNearbySlot != null && !currentNearbySlot.isFilled)
     {
-        bool success = ManaManager.Instance?.SpendMana(manaCost) ?? true;
+        OnReleased?.Invoke(this);
 
-        if (!success)
+        if (currentNearbySlot != null && !currentNearbySlot.isFilled)
         {
-            Debug.Log("Not enough mana to place minifigure.");
-            return; // Don't place
+           // bool success = ManaManager.Instance?.SpendMana(manaCost) ?? true;
+
+          /*  if (!success)
+            {
+                Debug.Log("Not enough mana to place minifigure.");
+                return;
+            }
+        */
+            currentNearbySlot.TryAssignFigure(this);
+            grab.enabled = false;
+            assignedSlot = currentNearbySlot;
         }
-
-        currentNearbySlot.TryAssignFigure(this);
-        grab.enabled = false;
-        assignedSlot = currentNearbySlot;
     }
-}
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -70,11 +68,11 @@ public class Minifigure : MonoBehaviour
         }
     }
 
-    public void SnapToSlot(Vector3 slotPosition)
+    // ✅ Updated to accept rotation
+    public void SnapToSlot(Vector3 slotPosition, Quaternion rotation)
     {
-        Vector3 finalPosition = slotPosition + new Vector3(0, 0.05f, 0);
-        transform.position = finalPosition;
-        transform.rotation = Quaternion.identity;
+        transform.position = slotPosition;
+        transform.rotation = rotation;
 
         if (TryGetComponent(out Rigidbody rb))
         {
@@ -90,7 +88,6 @@ public class Minifigure : MonoBehaviour
         }
     }
 
-    // ✅ Call this from WaveSpawner
     public GameObject TrySpawnEnemy(Vector3 spawnPosition)
     {
         if (currentSpawnCount >= maxSpawns)

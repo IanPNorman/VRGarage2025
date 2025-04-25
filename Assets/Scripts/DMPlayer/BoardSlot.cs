@@ -5,12 +5,14 @@ public class BoardSlot : MonoBehaviour
     public enum Side { North, South, East, West }
     public Side boardSide;
 
-    [Header("Visuals")]
+    [Tooltip("Offset added to the position when snapping a minifigure")]
+    public Vector3 placementOffset = new Vector3(0f, 0.05f, 0f);
+
+    [Tooltip("The rotation (in degrees) the figure should face when placed")]
+    public Vector3 placementRotation = Vector3.zero;
+
     public Material highlightMat;
     public Material hoverMat;
-
-    [Header("Placement Settings")]
-    public Vector3 placementOffset = new Vector3(0, 0.05f, 0); // Adjust in Inspector
 
     private Material originalMat;
     private Renderer rend;
@@ -29,16 +31,15 @@ public class BoardSlot : MonoBehaviour
 
     public void Highlight(bool on)
     {
-        if (!isFilled)
+        if (!isFilled && rend != null)
         {
             rend.material = on ? highlightMat : originalMat;
-             
         }
     }
 
     public void ShowHoverHighlight(bool on)
     {
-        if (!isFilled)
+        if (!isFilled && rend != null)
         {
             rend.material = on ? hoverMat : highlightMat;
         }
@@ -51,8 +52,10 @@ public class BoardSlot : MonoBehaviour
         assignedFigure = figure;
         isFilled = true;
 
-        // Use the placement offset to raise the figure
-        figure.SnapToSlot(transform.position + placementOffset);
+        Vector3 finalPos = transform.position + placementOffset;
+        Quaternion finalRot = Quaternion.Euler(placementRotation);
+        figure.SnapToSlot(finalPos, finalRot);
+
         ShowHoverHighlight(false);
         return true;
     }
