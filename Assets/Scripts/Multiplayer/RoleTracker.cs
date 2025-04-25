@@ -94,7 +94,7 @@ public class RoleManager : NetworkBehaviour
 
         GameObject prefabToSpawn;
 
-        if (sceneName == "BasicScene") // ✅ Lobby scene name
+        if (sceneName == "BasicScene") 
         {
             prefabToSpawn = lobbyPlayerPrefab;
             Debug.Log($"[OnSceneLoaded] Spawning lobby player prefab for client {clientId}");

@@ -15,7 +15,6 @@ public class XRPlayerOwnershipHandler : NetworkBehaviour
     {
         if (IsOwner)
         {
-            XRNetworkRigManager.Instance?.RegisterRig(gameObject);
             EnableLocalRig();
         }
         else
