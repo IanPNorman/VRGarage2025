@@ -39,13 +39,6 @@ public class RoleManager : NetworkBehaviour
         if (IsServer)
         {
             NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
-
-            NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
-            {
-                Debug.Log($"[RoleManager] Client {clientId} connected.");
-                // ✅ Refresh their local XR rig
-                XRNetworkRigManager.Instance?.TriggerRefresh(clientId);
-            };
         }
     }
 
