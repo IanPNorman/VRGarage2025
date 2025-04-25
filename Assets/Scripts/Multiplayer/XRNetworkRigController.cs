@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class XRNetworkRigController : NetworkBehaviour
 {
-    [Header("Local-only Systems (disabled for remote)")]
+    [Header("Local-only Systems")]
     public GameObject[] localOnlyObjects;
 
-    //[Header("Visuals to hide for self (hands/head)")]
-    //public GameObject[] hideFromOwnerVisuals;
+    [Header("Optional - Main Camera Listener")]
+    public AudioListener audioListener;
 
     public override void OnNetworkSpawn()
     {
@@ -15,15 +15,14 @@ public class XRNetworkRigController : NetworkBehaviour
         {
             foreach (var go in localOnlyObjects)
                 if (go != null) go.SetActive(true);
-
-            //foreach (var go in hideFromOwnerVisuals)
-                //if (go != null) go.SetActive(false); // hide own hands/head if desired
         }
         else
         {
             foreach (var go in localOnlyObjects)
                 if (go != null) go.SetActive(false);
+
+            if (audioListener != null)
+                audioListener.enabled = false;
         }
-        
     }
 }
