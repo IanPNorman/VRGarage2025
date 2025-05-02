@@ -55,9 +55,9 @@ public class RoleUI : MonoBehaviour
 
     private void UpdateStartGameButton()
     {
-        bool canStart = RoleManager.Instance.gameMasterCount.Value == 1 &&
-                        RoleManager.Instance.survivorCount.Value >= 1;
-
+        //bool canStart = RoleManager.Instance.gameMasterCount.Value == 1 &&
+        //                RoleManager.Instance.survivorCount.Value >= 1;
+        bool canStart = true;
         startGameButton.gameObject.SetActive(canStart);
         startGameButton.interactable = canStart;
     }
