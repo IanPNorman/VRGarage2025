@@ -8,9 +8,9 @@ public class ReloadCrossBow : MonoBehaviour
     CrossbowAnimations crossbowAnimations;
 
     // When hammer hits crossbow, reload
-    public void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        if(other.CompareTag("Crossbow"))
+        if(collision.gameObject.CompareTag("Crossbow"))
         {
             crossbowAnimations.ReloadAnimation();
             shooting.canFire = true;

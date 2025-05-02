@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using XRController = UnityEngine.XR.Interaction.Toolkit.XRController;
@@ -8,7 +9,7 @@ using XRController = UnityEngine.XR.Interaction.Toolkit.XRController;
 public class Shooting : MonoBehaviour
 {
     public Transform FirePoint;
-    public XRController rightHandController;
+    public InputActionReference triggerAction;
     private GameObject objectHit;
     CrossbowAnimations crossbowAnimations;
     public bool canFire;
@@ -22,9 +23,10 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rightHandController.inputDevice.IsPressed(InputHelpers.Button.Trigger, out bool isPressed) && isPressed)
+        if(triggerAction != null && triggerAction.action.WasPressedThisFrame())
         {
             Shoot();
+            Debug.Log("Trigger pressed");
         }
     }
 
