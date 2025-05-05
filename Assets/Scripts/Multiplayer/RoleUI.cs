@@ -31,9 +31,22 @@ public class RoleUI : MonoBehaviour
     {
         if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsHost)
         {
-            RoleManager.Instance.RequestRoleServerRpc(NetworkManager.Singleton.LocalClientId, role);
+            ulong localClientId = NetworkManager.Singleton.LocalClientId;
+
+            RoleManager.Instance.RequestRoleServerRpc(localClientId, role);
+
+            XRLocalRigController rig = FindObjectOfType<XRLocalRigController>();
+            if (rig != null)
+            {
+                rig.ApplyRole(role);
+            }
+            else
+            {
+                Debug.LogWarning("XRLocalRigController not found in the scene.");
+            }
         }
     }
+
 
     private void OnRoleChanged(int oldVal, int newVal)
     {

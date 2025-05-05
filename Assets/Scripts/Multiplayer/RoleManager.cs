@@ -29,12 +29,26 @@ public class RoleManager : NetworkBehaviour
             playerRoles[clientId] = PlayerRole.GameMaster;
             gameMasterCount.Value++;
             Debug.Log($"Client {clientId} is now Game Master.");
+            AssignRoleToPlayerObject(clientId, PlayerRole.GameMaster);
         }
         else if (requestedRole == PlayerRole.Survivor && survivorCount.Value < MaxSurvivors)
         {
             playerRoles[clientId] = PlayerRole.Survivor;
             survivorCount.Value++;
             Debug.Log($"Client {clientId} is now Survivor.");
+            AssignRoleToPlayerObject(clientId, PlayerRole.Survivor);
+        }
+    }
+
+    private void AssignRoleToPlayerObject(ulong clientId, PlayerRole role)
+    {
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(clientId, out var client))
+        {
+            var playerObject = client.PlayerObject;
+            if (playerObject != null && playerObject.TryGetComponent(out PlayerRoleInitializer initializer))
+            {
+                initializer.NetworkRole.Value = role;
+            }
         }
     }
 
