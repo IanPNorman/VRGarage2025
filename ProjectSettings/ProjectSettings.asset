@@ -830,7 +830,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: USE_INPUT_SYSTEM_POSE_CONTROL;DOTWEEN
+    Android: USE_INPUT_SYSTEM_POSE_CONTROL;DOTWEEN;USE_STICK_CONTROL_THUMBSTICKS
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
@@ -840,10 +840,10 @@ PlayerSettings:
     PS5: DOTWEEN
     QNX: DOTWEEN
     Stadia: DOTWEEN
-    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;DOTWEEN
+    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;DOTWEEN;USE_STICK_CONTROL_THUMBSTICKS
     VisionOS: DOTWEEN
     WebGL: DOTWEEN
-    Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;DOTWEEN
+    Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;DOTWEEN;USE_STICK_CONTROL_THUMBSTICKS
     XboxOne: DOTWEEN
     iPhone: DOTWEEN
     tvOS: DOTWEEN
@@ -958,11 +958,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 29f77b00-ece3-4af5-a761-6347d1ba87c0
+  cloudProjectId: ffbb3b0e-24f1-4484-9dec-711fd0ec19ce
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: VRGarage2025
-  organizationId: fuzzywumpus
+  organizationId: ianpk7211
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

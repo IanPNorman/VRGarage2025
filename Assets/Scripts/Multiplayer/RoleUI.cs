@@ -1,13 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class RoleUI : MonoBehaviour
 {
     [Header("Buttons")]
     public Button gmJoinButton;
     public Button survJoinButton;
+    public Button startGameButton;
 
     [Header("Button Labels")]
     public TMP_Text gmButtonText;
@@ -15,27 +17,44 @@ public class RoleUI : MonoBehaviour
 
     private void Start()
     {
-        // Subscribe to value changes to update UI across network
-        RoleManager.Instance.gameMasterCount.OnValueChanged += UpdateUI;
-        RoleManager.Instance.survivorCount.OnValueChanged += UpdateUI;
+        RoleManager.Instance.gameMasterCount.OnValueChanged += OnRoleChanged;
+        RoleManager.Instance.survivorCount.OnValueChanged += OnRoleChanged;
 
-        // Button listeners
         gmJoinButton.onClick.AddListener(() => ChooseRole(PlayerRole.GameMaster));
         survJoinButton.onClick.AddListener(() => ChooseRole(PlayerRole.Survivor));
 
-        // Initialize display
-        UpdateUI(0, 0);
+        UpdateUI();
+        UpdateStartGameButton(); 
     }
 
     private void ChooseRole(PlayerRole role)
     {
         if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsHost)
         {
-            RoleManager.Instance.RequestRoleServerRpc(NetworkManager.Singleton.LocalClientId, role);
+            ulong localClientId = NetworkManager.Singleton.LocalClientId;
+
+            RoleManager.Instance.RequestRoleServerRpc(localClientId, role);
+
+            XRLocalRigController rig = FindObjectOfType<XRLocalRigController>();
+            if (rig != null)
+            {
+                rig.ApplyRole(role);
+            }
+            else
+            {
+                Debug.LogWarning("XRLocalRigController not found in the scene.");
+            }
         }
     }
 
-    private void UpdateUI(int oldVal, int newVal)
+
+    private void OnRoleChanged(int oldVal, int newVal)
+    {
+        UpdateUI();
+        UpdateStartGameButton();
+    }
+
+    private void UpdateUI()
     {
         int gm = RoleManager.Instance.gameMasterCount.Value;
         int sv = RoleManager.Instance.survivorCount.Value;
@@ -45,5 +64,26 @@ public class RoleUI : MonoBehaviour
 
         gmJoinButton.interactable = gm < RoleManager.MaxGameMasters;
         survJoinButton.interactable = sv < RoleManager.MaxSurvivors;
+    }
+
+    private void UpdateStartGameButton()
+    {
+        //bool canStart = RoleManager.Instance.gameMasterCount.Value == 1 &&
+        //                RoleManager.Instance.survivorCount.Value >= 1;
+        bool canStart = true;
+        startGameButton.gameObject.SetActive(canStart);
+        startGameButton.interactable = canStart;
+    }
+
+    public void StartGame()
+    {
+        if (NetworkManager.Singleton.IsServer)
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene("DemoMap", LoadSceneMode.Single);
+        }
+        else
+        {
+            Debug.LogWarning("Only the host can start the game.");
+        }
     }
 }
