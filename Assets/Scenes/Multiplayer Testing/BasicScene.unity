@@ -5098,10 +5098,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 27973727756684497, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_RayInteractors.Array.data[1].m_Interactor
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 27973727756684497, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_RayInteractors.Array.data[3].m_Interactor
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 574024560486532561, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_TeleportInteractor
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 661563317610129286, guid: 9ed70b9b353627a4e8186a03eb4012ac,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 802475508222773754, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_TeleportInteractor
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 857344420701930512, guid: 9ed70b9b353627a4e8186a03eb4012ac,
         type: 3}
@@ -5273,6 +5293,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4506647629194592356, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5196037723969364878, guid: 9ed70b9b353627a4e8186a03eb4012ac,
         type: 3}
       propertyPath: m_IsActive
@@ -5378,6 +5403,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6681387551554985791, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_AimTargetObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888912716972629755, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7304470184108316397, guid: 9ed70b9b353627a4e8186a03eb4012ac,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5457,6 +5492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastDistance
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190565260207034649, guid: 9ed70b9b353627a4e8186a03eb4012ac,
+        type: 3}
+      propertyPath: m_AimTargetObject
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8631031454518754161, guid: 9ed70b9b353627a4e8186a03eb4012ac,
         type: 3}
