@@ -9,7 +9,7 @@
                     "name": "ThumbTouched",
                     "type": "Button",
                     "id": "de376d65-c48f-4ed9-b5df-5775be0b7786",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

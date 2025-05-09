@@ -12,6 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo/DemoMap.unity
     guid: 1d31d09a33b8a5549b5f3168be5f83db
   m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: aa2c615566fb6a6449c1b438e23ecacd,
+      type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e3aee76b9372917449aef639e2f74814,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 87b413c5a910b15498a98200731b1754,
