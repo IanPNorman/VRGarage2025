@@ -364,8 +364,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6, y: 0.4, z: 0.5}
-  m_Center: {x: 0.2, y: 0.2, z: 0}
+  m_Size: {x: 0.6, y: 0.1, z: 0.1}
+  m_Center: {x: 0.2, y: 0.15, z: 0}
 --- !u!54 &8828829916002313391
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   FirePoint: {fileID: 2189303852185960263}
   canFire: 1
   shootSound: {fileID: 8300000, guid: adb2ad44ed531ed47821e955316eb753, type: 3}
-  shootVolume: 0.654
+  shootVolume: 0.75
   audioSource: {fileID: 2070454561620047200}
 --- !u!114 &400854547793493017
 MonoBehaviour:
@@ -743,9 +743,10 @@ AudioSource:
   m_GameObject: {fileID: 5258662499943171574}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 24300002, guid: dad2ec26caf93f243aae7f693dc73145,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: adb2ad44ed531ed47821e955316eb753, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

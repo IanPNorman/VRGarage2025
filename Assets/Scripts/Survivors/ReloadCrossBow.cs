@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ReloadCrossBow : MonoBehaviour
 {
-    private Shooting shooting;
     private CrossbowAnimations crossbowAnimations;
 
     // When hammer hits crossbow, reload
@@ -12,8 +11,10 @@ public class ReloadCrossBow : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Crossbow"))
         {
-            crossbowAnimations.ReloadAnimation();
+            Shooting shooting = collision.gameObject.GetComponent<Shooting>();
+            //crossbowAnimations.ReloadAnimation();
             shooting.canFire = true;
+            Debug.Log("Crossbow reloaded");
         }
     }
 }

@@ -1190,7 +1190,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1482,15 +1482,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 907209673230341668, guid: eec7e5af5e279ef4cae080dea87a3622,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 3056656962492241795, guid: eec7e5af5e279ef4cae080dea87a3622,
         type: 3}
       propertyPath: m_Name
       value: StylizedCrossbowUnity
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154833003124177172, guid: eec7e5af5e279ef4cae080dea87a3622,
-        type: 3}
-      propertyPath: shootVolume
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
