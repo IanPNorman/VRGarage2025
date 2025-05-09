@@ -16,6 +16,13 @@ public class TriggerHaptic : MonoBehaviour
 
     public void HapticFeedback(float amplitude, float duration)
     {
-        controller.SendHapticImpulse(amplitude, duration);
+        if (controller != null)
+        {
+            controller.SendHapticImpulse(amplitude, duration);
+        }
+        else
+        {
+            Debug.LogWarning("XRBaseController not assigned to TriggerHaptic.");
+        }
     }
 }

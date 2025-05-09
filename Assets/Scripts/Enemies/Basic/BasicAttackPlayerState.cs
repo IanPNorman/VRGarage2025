@@ -43,7 +43,8 @@ public class BasicAttackPlayerState : BasicState
     {
         if(isAttacking == true && other.CompareTag("Player"))
         {
-            healthBar.Damage(1);
+            HealthHandler healthHandler = other.GetComponent<HealthHandler>();
+            healthHandler.HealthChanged(-1);
             if (attackCollider != null)
                 attackCollider.enabled = false;
         }
@@ -64,8 +65,9 @@ public class BasicAttackPlayerState : BasicState
             attackCollider.enabled = false;
             isAttacking = false;
         }
-
+        
         finishedAttack = true;
+        Debug.Log(finishedAttack);
         attackCoroutine = null;
     }
 

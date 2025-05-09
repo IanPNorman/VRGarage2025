@@ -7,7 +7,7 @@ public class HammerScript : MonoBehaviour
 {
     int numHits = 0;
     TriggerHaptic triggerHaptic;
-    
+
     // Repair door on collision
     private void OnTriggerEnter(Collider other)
     {
@@ -18,8 +18,7 @@ public class HammerScript : MonoBehaviour
             DoorHealth doorHealth = other.GetComponent<DoorHealth>();
 
             numHits++;
-
-            triggerHaptic.HapticFeedback(0.5f, 0.2f);
+            //triggerHaptic.HapticFeedback(0.8f, 0.2f);
 
             if (numHits >= 3) // Heal door after 3 hits
             {

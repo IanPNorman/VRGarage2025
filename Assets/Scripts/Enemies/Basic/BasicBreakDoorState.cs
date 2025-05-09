@@ -67,14 +67,8 @@ public class BasicBreakDoorState : BasicState
 
         while (healthHandler.CurrentHealth > 0)
         {
-            GameObject barricade = doorHealth.getBarricade(damageDone);
-            GameObject repairdBaricade = doorHealth.getRepairable(damageDone); //This gets the repairable barricade 
-            if (barricade != null)
-                barricade.SetActive(false);
-            if (repairdBaricade != null)
-                repairdBaricade.SetActive(true); // This sets the repairdable barriade as true
 
-            damageDone++;
+            doorHealth.dealDamage();
             healthHandler.HealthChanged(-1);
 
             yield return new WaitForSeconds(2f);
