@@ -10,6 +10,11 @@ public class Finder : MonoBehaviour
     void Start()
     {
         allDoors = GameObject.FindGameObjectsWithTag("Door");
+        
+    }
+
+    private void Update()
+    {
         allPlayers = GameObject.FindGameObjectsWithTag("Player");
     }
 
