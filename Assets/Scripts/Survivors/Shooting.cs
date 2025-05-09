@@ -24,7 +24,7 @@ public class Shooting : MonoBehaviour
     {
         canFire = true;
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
-        //grabbable.activated.AddListener(Shoot);
+        grabbable.activated.AddListener(Shoot);
 
         // Set up audio source
         audioSource = GetComponent<AudioSource>();
@@ -56,13 +56,13 @@ public class Shooting : MonoBehaviour
         }
 
         RaycastHit hit;
-        //HealthHandler healthHandler;
+        HealthHandler healthHandler;
 
         if (Physics.Raycast(FirePoint.position, FirePoint.transform.TransformDirection(Vector3.forward), out hit, 200) && canFire)
         {
             Debug.DrawRay(FirePoint.position, FirePoint.transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
-            /*objectHit = hit.collider.gameObject;
+            objectHit = hit.collider.gameObject;
             Debug.Log("Hit" + objectHit);
 
             if (objectHit != null && objectHit.CompareTag("Enemy"))
@@ -73,7 +73,7 @@ public class Shooting : MonoBehaviour
                     healthHandler.HealthChanged(-1);
                     Debug.Log("Enemy health -1");
                 }
-            }*/
+            }
             
         }
 
