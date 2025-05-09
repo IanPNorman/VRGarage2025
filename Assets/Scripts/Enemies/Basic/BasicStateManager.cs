@@ -6,19 +6,24 @@ using UnityEngine.AI;
 public class BasicStateManager : MonoBehaviour
 {
     public BasicState currentState;
-    public BasicState BossRatDead;
+    public BasicState basicDieState;
     public bool isDead;
+
+    public HealthHandler healthHandler;
     void Update()
     {
         RunStateMachine();
-
+        if (healthHandler.CurrentHealth <= 0)
+        {
+            isDead = true;
+        }
     }
 
     private void RunStateMachine()
     {
         if (isDead)
         {
-            SwitchToNextState(BossRatDead);
+            SwitchToNextState(basicDieState);
         }
         BasicState nextState = currentState?.RunCurrentState();
 

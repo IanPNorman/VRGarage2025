@@ -8,6 +8,8 @@ public class BasicInitialMoveState : BasicState
     public BasicState BasicBreakDoorState;
     public NavMeshAgent agent;
 
+    public float movespeed = 2f;
+
     private Finder finder;
     private GameObject nearestDoor;
 
@@ -34,7 +36,8 @@ public class BasicInitialMoveState : BasicState
     void Start()
     {
         agent = GetComponentInParent<NavMeshAgent>();
-        finder = FindObjectOfType<Finder>(); 
+        finder = FindObjectOfType<Finder>();
+        agent.speed = movespeed;
     }
 
     private void CheckDistance(GameObject target)
