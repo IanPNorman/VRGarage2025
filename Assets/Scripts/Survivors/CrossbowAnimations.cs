@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class CrossbowAnimations : MonoBehaviour
 {
-    private Animator anim;
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        if (anim == null)
+        {
+            Debug.LogError("Animator component not found.");
+        }
     }
 
     // Play firing animation
@@ -18,6 +23,7 @@ public class CrossbowAnimations : MonoBehaviour
         if(anim != null)
         {
             anim.Play("Base Layer.StylizedCrossbowRig|Firing", 0);
+            Debug.Log("Crossbow fired");
         }
     }
 
@@ -27,6 +33,7 @@ public class CrossbowAnimations : MonoBehaviour
         if (anim != null)
         {
             anim.Play("Base Layer.StylizedCrossbowRig|Reloading", 0);
+            Debug.Log("Crossbow reloaded");
             StartCoroutine(ReturnToIdleAfterReload());
         }
     }
