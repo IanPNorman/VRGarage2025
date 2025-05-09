@@ -1040,6 +1040,7 @@ GameObject:
   - component: {fileID: 6192343339386466900}
   - component: {fileID: 5722583437378521769}
   - component: {fileID: 4595407906740805338}
+  - component: {fileID: 969706438821937910}
   m_Layer: 0
   m_Name: StateMachine
   m_TagString: Untagged
@@ -1092,6 +1093,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   currentHealth: 0
+--- !u!65 &969706438821937910
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633091917021679853}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.73, y: 1.72, z: 0.63}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!1 &4710081835485094363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,7 +1770,7 @@ GameObject:
   - component: {fileID: 1290775057037839315}
   m_Layer: 0
   m_Name: FinishedTankySkele
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
