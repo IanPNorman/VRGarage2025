@@ -6771,7 +6771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setupTime: 30
   countdownThreshold: 30
-  enemiesPerMinifigure: 3
+  enemiesPerMinifigure: 4
   countdownText: {fileID: 1521400977}
   countdownUI: {fileID: 202114774}
   setupPhaseUI: {fileID: 867466145}
