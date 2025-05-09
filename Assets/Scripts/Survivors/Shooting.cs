@@ -47,7 +47,7 @@ public class Shooting : MonoBehaviour
         }*/
     }
 
-    public void Shoot()
+    public void Shoot(ActivateEventArgs arg)
     {
         // Only shoot if we can fire
         if(!canFire)
