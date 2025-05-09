@@ -10,6 +10,11 @@ public class CrossbowAnimations : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        if (anim == null)
+        {
+            Debug.LogError("Animator component not found.");
+        }
     }
 
     // Play firing animation

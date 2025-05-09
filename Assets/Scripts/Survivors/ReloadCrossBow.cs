@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ReloadCrossBow : MonoBehaviour
 {
-    Shooting shooting;
-    CrossbowAnimations crossbowAnimations;
+    private Shooting shooting;
+    private CrossbowAnimations crossbowAnimations;
 
     // When hammer hits crossbow, reload
     public void OnCollisionEnter(UnityEngine.Collision collision)
