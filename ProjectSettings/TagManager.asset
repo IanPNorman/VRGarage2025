@@ -12,6 +12,8 @@ TagManager:
   - Door
   - Crossbow
   - Enemy
+  - Ground
+  - Dead
   layers:
   - Default
   - TransparentFX

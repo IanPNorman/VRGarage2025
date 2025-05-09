@@ -173,7 +173,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -438,7 +438,7 @@ PrefabInstance:
     - target: {fileID: 7950705453031732767, guid: 857963347d6fba642809acbfc79e046f,
         type: 3}
       propertyPath: m_Name
-      value: SkeletonMiniFigure Variant
+      value: BasicSkeletonMiniFigure Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -640,6 +640,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1445867608235680568, guid: e3696d23800c75b4ba095ca616bd4775,
     type: 3}
-  maxSpawns: 3
+  maxSpawns: 2
   spawnCountText: {fileID: 6260742494261051735}
   manaCost: 2

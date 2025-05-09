@@ -6,20 +6,33 @@ using Unity.XR.CoreUtils;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] MicroBar healthBar;
+    [SerializeField] private MicroBar healthBar;
     public HealthHandler healthHandler;
 
-    // Start is called before the first frame update
+    [Header("XR Rig Reference")]
+    [SerializeField] private GameObject xrRig; 
+    [SerializeField] private string tagToSetOnDeath = "Dead"; 
+
     void Start()
     {
         healthBar.Initialize(healthHandler.MaxHealth);
+        healthHandler.OnHealthChanged += HandleHealthChanged;
     }
 
-    // Damage player and change health bar
-    public void Damage(float damage)
+    private void HandleHealthChanged(object source, float oldHealth, float newHealth)
     {
-        float damageAmount = damage;
-        healthBar.UpdateBar(healthBar.CurrentValue - damageAmount);
-        healthHandler.HealthChanged(-damageAmount);
+        healthBar.UpdateBar(newHealth);
+
+        if (newHealth <= 0f)
+        {
+            xrRig.tag = tagToSetOnDeath;
+
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (healthHandler != null)
+            healthHandler.OnHealthChanged -= HandleHealthChanged;
     }
 }
