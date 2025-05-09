@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6101845511470734350}
   - component: {fileID: 3337477983569890004}
   - component: {fileID: 4338605413152366342}
-  - component: {fileID: 4467387470113968426}
+  - component: {fileID: 2184289017092459681}
   m_Layer: 0
   m_Name: HealingSpell
   m_TagString: Untagged
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4467387470113968426
+--- !u!114 &2184289017092459681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,8 +258,5 @@ MonoBehaviour:
   m_FarAttachMode: 0
   healingZonePrefab: {fileID: 338479831336219105, guid: 74b3f477097f7ab4fae7c3eda67609b3,
     type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
   destroyDelay: 0
-  manaCost: 2
+  groundTag: Ground
