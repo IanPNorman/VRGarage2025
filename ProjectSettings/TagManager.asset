@@ -13,6 +13,7 @@ TagManager:
   - Crossbow
   - Enemy
   - Ground
+  - Dead
   layers:
   - Default
   - TransparentFX
