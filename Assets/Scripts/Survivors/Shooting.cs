@@ -10,7 +10,6 @@ using XRController = UnityEngine.XR.Interaction.Toolkit.XRController;
 public class Shooting : MonoBehaviour
 {
     public Transform FirePoint;
-    //public InputActionReference triggerAction;
     private GameObject objectHit;
     private CrossbowAnimations crossbowAnimations;
     public bool canFire;
@@ -39,12 +38,6 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if(triggerAction != null && triggerAction.action.WasPressedThisFrame())
-        {
-            Shoot();
-            Debug.Log("Trigger pressed");
-        }*/
     }
 
     public void Shoot(ActivateEventArgs arg)
@@ -52,6 +45,7 @@ public class Shooting : MonoBehaviour
         // Only shoot if we can fire
         if(!canFire)
         {
+            Debug.Log("Crossbow can't fire");
             return;
         }
 
@@ -78,17 +72,23 @@ public class Shooting : MonoBehaviour
         }
 
         // Play sound effect
+        // Doesn't work rn, sad
         if(shootSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(shootSound, shootVolume);
             Debug.Log("playing crossbow shoot sound");
         }
+        else if(audioSource = null) 
+        {
+            Debug.LogWarning("Missing AudioSource component");
+        }
         else
         {
-            Debug.LogWarning("Missing shoot sound or AudioSource component");
+            Debug.LogWarning("Missing shoot sound");
         }
 
         //crossbowAnimations.FireAnimation();
-        //canFire = false;
+        canFire = false;
+        Debug.Log("Crossbow fired");
     }
 }
